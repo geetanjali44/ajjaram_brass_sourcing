@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+    font-family: emoji;
+    margin:0;
+     background:#f5deb3;
+}
+
+.top-header{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 20px;
+    background:transparent;
+    position:sticky;
+    top:0;
+}
+
+.icon{cursor:pointer;font-size:18px;margin-left:10px;}
+
+.back-btn{
+    background:#8b5e3c;
+    color:white;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1000px;
+    margin:20px auto;
+     background:#f5deb3;
+    padding:30px;
+    display:flex;
+    gap:20px;
+    border-radius:10px;
+}
+
+.product-img img{width:220px;border-radius:10px;}
+
+.price{font-size:22px;color:#8b5e3c;font-weight:bold;}
+
+.old-price{
+    text-decoration:line-through;
+    color:gray;
+    margin-left:10px;
+    font-size:14px;
+}
+
+.rating{color:orange;margin:8px 0;}
+
+.desc{font-size:15px;color:#444;line-height:1.5;}
+
+.btn-row{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+button{
+    width:50%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.cart-btn{background:#8b5e3c;color:white;}
+.buy-btn{
+    background:#f59e0b;
+    color:white;
+    font-weight:bold;
+}
+
+.related-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:15px;
+    
+}
+
+.card{
+     background: linear-gradient(-45deg,
+        
+        #faf9f7,
+       
+        
+        #fa870c74
+    );
+    border-radius:10px;
+    overflow:hidden;
+    text-align:center;
+    text-decoration:none;
+    color:black;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.card h4{margin:8px 0;}
+
+.rating{color:orange;font-size:14px;}
+
+.old-price{
+    text-decoration:line-through;
+    color:gray;
+    font-size:12px;
+}
+.related-grid .card{
+    position: relative;
+    background: linear-gradient(-45deg,
+        
+        #faf9f7,
+       
+        
+        #fa870c74
+    );
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    box-shadow:0 2px 8px rgb(249, 93, 3);
+    transition: 0.3s;
+}
+
+.related-grid .card:hover{
+    transform: translateY(-3px);
+}
+
+/* IMAGE */
+.related-grid .card img{
+    width: 140px;
+    height: 140px;
+    object-fit:cover;
+    border-radius: 10px;
+   
+    margin-top: 10px;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ❤️ HEART ICON */
+.wish-related{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    z-index: 2;
+    transition: 0.3s;
+}
+
+.wish-related i{
+    font-size: 16px;
+    color: black;
+    transition: 0.3s;
+}
+
+/* ACTIVE (RED HEART) */
+.wish-related.active i,
+.wish-related i.fa-solid{
+    color: red;
+}
+
+/* HOVER EFFECT */
+.wish-related:hover{
+    transform: scale(1.1);
+}
+.wish-btn{
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.wish-btn i{
+    color: black;
+    transition: 0.3s;
+}
+
+.wish-btn.active{
+    background: #ffe6e6;
+}
+
+.wish-btn.active i{
+    color: red;
+}
+
+.wish-btn:hover{
+    transform: scale(1.05);
+}
+.wishlist{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    font-size:16px;
+    user-select:none;
+}
+
+.wishlist i{
+    color:black;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.wishlist.active i{
+    color:red;
+}
+
+.wishlist.active span{
+    color:red;
+}
+@media(max-width:768px){
+    .container{flex-direction:column;}
+    .related-grid{grid-template-columns:repeat(2,1fr);}
+}
+.search-results{
+    position:fixed;
+    top:120px;
+    right:20px;
+    width:300px;
+    max-height:400px;
+    overflow-y:auto;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    display:none;
+    z-index:9999;
+}
+
+.search-item{
+    display:flex;
+    gap:10px;
+    padding:10px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.search-item img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:6px;
+}
+#overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    z-index:999;
+}
+
+#overlay.active{
+    display:block;
+}
+
+/* SEARCH DROPDOWN */
+.search-dropdown{
+    position:fixed;
+    top:60px;
+    right:20px;
+    width:320px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    display:none;
+    z-index:1000;
+    padding:10px;
+}
+
+.search-dropdown input{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    margin-bottom:10px;
+    outline:none;
+}
+
+/* RESULT ITEM */
+.search-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.search-item img{
+    width:45px;
+    height:45px;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+.search-item h4{
+    margin:0;
+    font-size:13px;
+}
+
+.search-item p{
+    margin:2px 0 0;
+    font-size:12px;
+    color:#8b5e3c;
+    font-weight:bold;
+}
+
+.search-item:hover{
+    background:#f5f5f5;
+}
+.cart-icon-wrap{
+    position:relative;
+    display:inline-block;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+#cartCount{
+    position:absolute;
+    top:-9px;
+    right:-9px;
+    min-width:17px;
+    height:17px;
+    padding:0 4px;
+    background:red;
+    color:white;
+    font-size:10px;
+    border-radius:50%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    font-family:Arial, sans-serif;
+}
+</style>
+</head>
+
+<body>
+<div id="overlay"></div>
+
+<div id="searchDropdown" class="search-dropdown">
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <div id="searchResults"></div>
+</div>
+<header class="top-header">
+    <div class="back-btn" onclick="history.back()">← Back</div>
+    <div>
+        <i class="fas fa-search icon" onclick="toggleSearch()"></i>
+        
+        <i class="far fa-heart icon" onclick="goWishlist()"></i>
+        <span class="cart-icon-wrap" onclick="goCart()">
+    <i class="fas fa-shopping-cart icon"></i>
+    <b id="cartCount">0</b>
+</span>
+    </div>
+</header>
+<div id="searchDropdown" class="search-dropdown"></div>
+<!-- PRODUCT -->
+<div class="container">
+
+    <div class="product-img">
+        <img id="img">
+    </div>
+
+    <div class="details">
+
+        <h2 id="name"></h2>
+ 
+        <div class="price" id="price"></div>
+
+        <div class="rating" id="rating"></div>
+
+        <p class="desc" id="desc"></p>
+        <div id="wishBtn" class="wishlist">
+    <i class="fa-regular fa-heart"></i>
+    <span>Wishlist</span>
+</div>
+        <div class="btn-row">
+            <button class="cart-btn" onclick="addToCart()">Add to Cart</button>
+            <button class="buy-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- RELATED PRODUCTS (PURE HTML) -->
+<h2 style="padding:10px;">Related Products</h2>
+
+<div class="related-grid">
+
+    <!-- ITEM 1 -->
+    <div class="card">
+        <div class="wish-related">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <a href="product.html?name=Pooja Thali&price=1500&old=1999&img=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_uHs8lG4Tdcw1Ee8cqm7r5obZpfR31s1iCVk-Bk3yug&s=10&category=poojaitems">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_uHs8lG4Tdcw1Ee8cqm7r5obZpfR31s1iCVk-Bk3yug&s=10">
+            <h4>Pooja Thali</h4>
+            <div class="rating">⭐⭐⭐⭐ (4.4)</div>
+            <p>₹1500 <span class="old-price">₹1999</span></p>
+        </a>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="card">
+        <div class="wish-related">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <a href="product.html?name=Brass Diya Set&price=1200&old=1699&img=https://images.jdmagicbox.com/v2/comp/def_content/ncat_id/brass-puja-item-09muesa-250.jpg&category=poojaitems">
+            <img src="https://images.jdmagicbox.com/v2/comp/def_content/ncat_id/brass-puja-item-09muesa-250.jpg">
+            <h4>Brass Diya Set</h4>
+            <div class="rating">⭐⭐⭐⭐ (4.3)</div>
+            <p>₹1200 <span class="old-price">₹1699</span></p>
+        </a>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="card">
+        <div class="wish-related">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <a href="product.html?name=Brass Kalash&price=749&old=999&img=https://m.media-amazon.com/images/I/71Zi8SS3WVL.jpg&category=poojaitems">
+            <img src="https://m.media-amazon.com/images/I/71Zi8SS3WVL.jpg">
+            <h4>Brass Kalash</h4>
+            <div class="rating">⭐⭐⭐⭐ (4.3)</div>
+            <p>₹749 <span class="old-price">₹999</span></p>
+        </a>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="card">
+        <div class="wish-related">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <a href="product.html?name=Incense Holder&price=229&old=399&img=https://m.media-amazon.com/images/I/61mtg70beBL.jpg&category=poojaitems">
+            <img src="https://m.media-amazon.com/images/I/61mtg70beBL.jpg">
+            <h4>Incense Holder</h4>
+            <div class="rating">⭐⭐⭐⭐ (4.2)</div>
+            <p>₹229 <span class="old-price">₹399</span></p>
+        </a>
+    </div>
+
+<div id="searchResults" class="search-results"></div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const product = {
+    name: params.get("name"),
+    price: params.get("price"),
+    old: params.get("old"),
+    img: params.get("img")
+};
+
+/* LOAD PRODUCT */
+document.getElementById("img").src = product.img;
+document.getElementById("name").innerText = product.name;
+document.getElementById("price").innerHTML =
+`₹${product.price} <span class="old-price">₹${product.old}</span>`;
+document.getElementById("rating").innerText = "⭐⭐⭐⭐⭐ (4.5)";
+document.getElementById("desc").innerText =
+product.name + " is a premium quality brass product for pooja use.";
+
+/* CART */
+function addToCart(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const item = {
+        name: product.name,
+        price: product.price,
+        old: product.old,
+        img: product.img,
+        image: product.img,
+        qty: 1
+    };
+
+    cart.push(item);
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+
+    const btn = document.querySelector(".cart-btn");
+    btn.innerText = "Added ✓";
+
+    setTimeout(()=>{
+        btn.innerText = "Add to Cart";
+    },1200);
+}
+function updateCartCount(){
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = document.getElementById("cartCount");
+
+    if(cartCount){
+        cartCount.innerText = cart.length;
+
+        if(cart.length === 0){
+            cartCount.style.display = "none";
+        }else{
+            cartCount.style.display = "flex";
+        }
+    }
+}
+
+updateCartCount();
+
+function placeOrder(){
+    const paymentData =
+        "name=" + encodeURIComponent(product.name) +
+        "&price=" + encodeURIComponent(product.price) +
+        "&old=" + encodeURIComponent(product.old || "") +
+        "&img=" + encodeURIComponent(product.img || "");
+
+    const isLoggedIn = localStorage.getItem("ajjaramLoggedIn") === "true";
+
+    if(isLoggedIn){
+        window.location.href = "payment.html?" + paymentData;
+    }else{
+        window.location.href = "loginpage.html?" + paymentData;
+    }
+}
+
+
+/* NAV */
+function goWishlist(){
+    window.location.href="wishlist.html";
+}
+
+function goCart(){
+    window.location.href="cart.html";
+}
+document.querySelectorAll(".wish-related").forEach(icon => {
+    icon.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const heart = this.querySelector("i");
+
+        if(heart.classList.contains("fa-regular")){
+            heart.classList.remove("fa-regular");
+            heart.classList.add("fa-solid");
+        } else {
+            heart.classList.remove("fa-solid");
+            heart.classList.add("fa-regular");
+        }
+    });
+});
+function updateWish(){
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    let exists = wishlist.find(p => p.name === product.name);
+
+    const wishBtn = document.getElementById("wishBtn");
+
+    if(exists){
+        wishBtn.classList.add("active");
+        wishBtn.innerHTML = `<i class="fa-solid fa-heart"></i> Added to Wishlist`;
+    } else {
+        wishBtn.classList.remove("active");
+        wishBtn.innerHTML = `<i class="fa-regular fa-heart"></i> Wishlist`;
+    }
+}
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+const wishBtn = document.getElementById("wishBtn");
+
+/* CURRENT PRODUCT */
+const currentProduct = {
+    name: product.name,
+    price: product.price,
+    old: product.old,
+    img: product.img,
+    image: product.img
+};
+
+/* UPDATE UI */
+function updateWishlistUI(){
+    let exists = wishlist.find(p => p.name === currentProduct.name);
+
+    if(exists){
+        wishBtn.classList.add("active");
+        wishBtn.innerHTML = `<i class="fa-solid fa-heart"></i><span>Wishlisted</span>`;
+    }else{
+        wishBtn.classList.remove("active");
+        wishBtn.innerHTML = `<i class="fa-regular fa-heart"></i><span>Wishlist</span>`;
+    }
+}
+
+updateWishlistUI();
+
+/* CLICK ACTION */
+wishBtn.onclick = () => {
+
+    let index = wishlist.findIndex(p => p.name === currentProduct.name);
+
+    if(index !== -1){
+        wishlist.splice(index, 1);
+    } else {
+        wishlist.push(currentProduct);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    updateWishlistUI();
+};
+updateWish();
+const searchIcon = document.querySelector(".fa-search");
+const searchBox = document.getElementById("searchDropdown");
+const overlay = document.getElementById("overlay");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+/* SAMPLE PRODUCTS (ADD MORE IF YOU WANT) */
+
+
+/* OPEN SEARCH */
+searchIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    searchBox.style.display = "block";
+    overlay.classList.add("active");
+
+    searchInput.focus();
+});
+
+/* CLOSE ON OVERLAY */
+overlay.addEventListener("click", () => {
+    searchBox.style.display = "none";
+    overlay.classList.remove("active");
+});
+
+/* SEARCH FUNCTION */
+/* SEARCH FUNCTION - IMAGE + NAME ONLY, NO PRICE SHOWN */
+searchInput.addEventListener("input", function () {
+
+    let value = this.value.toLowerCase().trim();
+    searchResults.innerHTML = "";
+
+    if(value === ""){
+        searchResults.style.display = "none";
+        return;
+    }
+
+    const cards = document.querySelectorAll(".card, .product-card");
+
+    cards.forEach(card => {
+
+        const nameTag = card.querySelector("h4");
+        const imgTag = card.querySelector("img");
+        const priceTag = card.querySelector("p");
+
+        if(!nameTag || !imgTag) return;
+
+        const name = nameTag.innerText;
+        const img = imgTag.src;
+
+        // Price is used only for opening product page, not shown in dropdown
+        const priceText = priceTag ? priceTag.innerText : "";
+
+        if(name.toLowerCase().includes(value)){
+
+            let div = document.createElement("div");
+            div.className = "search-item";
+
+            div.innerHTML = `
+                <img src="${img}">
+                <div>
+                    <h4>${name}</h4>
+                </div>
+            `;
+
+            div.onclick = () => {
+                const price = priceText.match(/₹\s?([\d,]+)/)?.[1] || "";
+                const old = priceText.split("₹")[2]?.replace(/,/g,"").trim() || "";
+
+                window.location.href =
+                `product.html?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&old=${encodeURIComponent(old)}&img=${encodeURIComponent(img)}`;
+            };
+
+            searchResults.appendChild(div);
+        }
+    });
+
+    searchResults.style.display =
+        searchResults.children.length ? "block" : "none";
+});
+
+
+</script>
+<script src="products-data.js"></script>
+<script src="common-search.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const currentName = (params.get("name") || "").trim();
+    const currentImg = (params.get("img") || "").trim();
+    const currentCategoryFromUrl = (params.get("category") || "").trim();
+
+    const allProducts = Array.isArray(window.ALL_PRODUCTS) ? window.ALL_PRODUCTS : [];
+    const relatedGrid = document.querySelector(".related-grid");
+
+    if (!relatedGrid) return;
+
+    function cleanText(text){
+        return String(text || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
+    }
+
+    function normalizeCategory(cat){
+        cat = String(cat || "").toLowerCase().trim();
+
+        if(cat.includes("pooja")) return "poojaitems";
+        if(cat.includes("kitchen")) return "kitchen";
+        if(cat.includes("idol")) return "idols";
+        if(cat.includes("handicraft")) return "handicrafts";
+        if(cat.includes("home")) return "homedecor";
+        if(cat.includes("decor")) return "homedecor";
+        if(cat.includes("wall")) return "wallhangings";
+
+        return cat;
+    }
+
+    function inferCategoryFromName(name){
+        const n = String(name || "").toLowerCase();
+
+        if(
+            n.includes("idol") ||
+            n.includes("ganesha") ||
+            n.includes("krishna") ||
+            n.includes("shiva") ||
+            n.includes("lakshmi") ||
+            n.includes("saraswati") ||
+            n.includes("hanuman") ||
+            n.includes("balaji") ||
+            n.includes("durga") ||
+            n.includes("nataraja") ||
+            n.includes("rama") ||
+            n.includes("sai baba") ||
+            n.includes("dattatreya")
+        ){
+            return "idols";
+        }
+
+        if(
+            n.includes("pooja") ||
+            n.includes("diya") ||
+            n.includes("kalash") ||
+            n.includes("incense") ||
+            n.includes("agarbatti") ||
+            n.includes("trishul") ||
+            n.includes("trishulam") ||
+            n.includes("bell") ||
+            n.includes("harathi") ||
+            n.includes("lota")
+        ){
+            return "poojaitems";
+        }
+
+        if(
+            n.includes("dinner") ||
+            n.includes("bowl") ||
+            n.includes("plate") ||
+            n.includes("glass") ||
+            n.includes("pot") ||
+            n.includes("tea") ||
+            n.includes("spice") ||
+            n.includes("rice") ||
+            n.includes("cooking") ||
+            n.includes("cooker") ||
+            n.includes("container") ||
+            n.includes("tiffin") ||
+            n.includes("serving") ||
+            n.includes("spoon") ||
+            n.includes("ladle") ||
+            n.includes("pickle") ||
+            n.includes("milk") ||
+            n.includes("coffee")
+        ){
+            return "kitchen";
+        }
+
+        if(
+            n.includes("wall") ||
+            n.includes("hanging") ||
+            n.includes("panel") ||
+            n.includes("frame") ||
+            n.includes("door hanging") ||
+            n.includes("om") ||
+            n.includes("swastik")
+        ){
+            return "wallhangings";
+        }
+
+        if(
+            n.includes("urli") ||
+            n.includes("lamp") ||
+            n.includes("lantern") ||
+            n.includes("clock") ||
+            n.includes("flower") ||
+            n.includes("decorative") ||
+            n.includes("decor") ||
+            n.includes("table") ||
+            n.includes("jar") ||
+            n.includes("tray") ||
+            n.includes("stand")
+        ){
+            return "homedecor";
+        }
+
+        if(
+            n.includes("swan") ||
+            n.includes("peacock") ||
+            n.includes("showpiece") ||
+            n.includes("elephant") ||
+            n.includes("horse") ||
+            n.includes("camel") ||
+            n.includes("cart") ||
+            n.includes("musician") ||
+            n.includes("deer") ||
+            n.includes("turtle") ||
+            n.includes("owl") ||
+            n.includes("ship") ||
+            n.includes("chariot") ||
+            n.includes("handicraft")
+        ){
+            return "handicrafts";
+        }
+
+        return "";
+    }
+
+    function productUrl(product){
+        return "product.html?name=" + encodeURIComponent(product.name || "") +
+            "&price=" + encodeURIComponent(product.price || "") +
+            "&old=" + encodeURIComponent(product.old || "") +
+            "&img=" + encodeURIComponent(product.img || "") +
+            "&category=" + encodeURIComponent(product.categoryKey || product.category || "");
+    }
+
+    const currentNameClean = cleanText(currentName);
+    const currentImgClean = decodeURIComponent(currentImg);
+
+    let currentProduct = allProducts.find(p =>
+        cleanText(p.name) === currentNameClean
+    );
+
+    if(!currentProduct && currentImgClean){
+        currentProduct = allProducts.find(p =>
+            String(p.img || "") === currentImgClean
+        );
+    }
+
+    if(!currentProduct){
+        currentProduct = allProducts.find(p => {
+            const dataName = cleanText(p.name);
+            return dataName.includes(currentNameClean) || currentNameClean.includes(dataName);
+        });
+    }
+
+    let currentCategory =
+        normalizeCategory(currentCategoryFromUrl) ||
+        normalizeCategory(currentProduct && currentProduct.categoryKey) ||
+        normalizeCategory(currentProduct && currentProduct.category) ||
+        inferCategoryFromName(currentName);
+
+    let relatedProducts = allProducts.filter(p => {
+
+        const productCategory =
+            normalizeCategory(p.categoryKey) ||
+            normalizeCategory(p.category);
+
+        const sameProduct =
+            cleanText(p.name) === currentNameClean ||
+            String(p.img || "") === currentImgClean;
+
+        return productCategory === currentCategory && !sameProduct;
+    });
+
+    if(relatedProducts.length < 4){
+        const guessedCategory = inferCategoryFromName(currentName);
+
+        if(guessedCategory){
+            relatedProducts = allProducts.filter(p => {
+
+                const productCategory =
+                    normalizeCategory(p.categoryKey) ||
+                    normalizeCategory(p.category);
+
+                const sameProduct =
+                    cleanText(p.name) === currentNameClean ||
+                    String(p.img || "") === currentImgClean;
+
+                return productCategory === guessedCategory && !sameProduct;
+            });
+
+            currentCategory = guessedCategory;
+        }
+    }
+
+    if(relatedProducts.length === 0){
+        relatedGrid.innerHTML = `
+            <p style="grid-column:1/-1;text-align:center;color:#8b5e3c;font-weight:bold;">
+                No related products found
+            </p>
+        `;
+        return;
+    }
+
+    relatedProducts = relatedProducts.slice(0, 8);
+
+    relatedGrid.innerHTML = relatedProducts.map(product => `
+        <div class="card">
+            <div class="wish-related">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+
+            <a href="${productUrl(product)}">
+                <img src="${product.img}" alt="${product.name}">
+                <h4>${product.name}</h4>
+                <div class="rating">⭐⭐⭐⭐⭐</div>
+                <p>
+                    ₹${product.price}
+                    ${product.old ? `<span class="old-price">₹${product.old}</span>` : ""}
+                </p>
+            </a>
+        </div>
+    `).join("");
+
+    document.querySelectorAll(".wish-related").forEach(icon => {
+        icon.addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            const heart = this.querySelector("i");
+
+            if(heart.classList.contains("fa-regular")){
+                heart.classList.remove("fa-regular");
+                heart.classList.add("fa-solid");
+            }else{
+                heart.classList.remove("fa-solid");
+                heart.classList.add("fa-regular");
+            }
+        });
+    });
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Orders - Ajjaram Brass</title>
+
+<link rel="stylesheet" href="order-tracking.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ORDERS PAGE -->
+<section id="ordersPage">
+
+    <header class="top-header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h1>My Orders</h1>
+    </header>
+
+    <!-- BANNER -->
+    <div class="order-banner">
+        <div>
+            <h2>Premium Brass Care</h2>
+            <p>Track your orders easily</p>
+            
+        </div>
+
+        <i class="fa-solid fa-truck-fast"></i>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-filter-row">
+        <div class="order-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="orderSearch" placeholder="Search your order...">
+        </div>
+
+        <button class="filter-main">
+            <i class="fa-solid fa-sliders"></i>
+            Filters
+        </button>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="upi">UPI</button>
+        <button class="filter-btn" data-filter="cod">COD</button>
+        <button class="filter-btn" data-filter="delivered">Delivered</button>
+    </div>
+
+    <!-- ORDER LIST -->
+    <div class="orders-list" id="ordersList"></div>
+
+</section>
+
+<!-- ORDER DETAILS PAGE -->
+<section id="detailsPage">
+
+    <header class="top-header details-header">
+        <button class="back-btn" onclick="goBackToOrders()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h1>Order Details</h1>
+
+        
+    </header>
+
+    <div id="orderDetailsContent"></div>
+
+</section>
+
+<script src="order-tracking.js"></script>
+</body>
+</html>

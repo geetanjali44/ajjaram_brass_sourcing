@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - Ajjaram Brass</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:emoji;
+}
+body{
+    min-height:100vh;
+    min-height:100dvh;
+    background:#f5deb3;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    font-family:Arial, sans-serif;
+    padding-bottom:55px;
+    padding-top:70px;
+}
+
+.login-box{
+    width:100%;
+    max-width:390px;
+    padding:20px;
+    text-align:center;
+    background:transparent;
+    box-shadow:none;
+    border-radius:0;
+}
+
+.logo{
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:14px;
+}
+
+h2{
+    color:#4b2500;
+    margin-bottom:8px;
+}
+
+p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.input-box{
+    display:flex;
+    align-items:center;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:14px;
+}
+
+.input-box span{
+    font-weight:bold;
+    margin-right:8px;
+    color:#4b2500;
+}
+
+.input-box input{
+    width:100%;
+    border:none;
+    outline:none;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    background:#8b5e3c;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+.otp-section{
+    display:none;
+}
+
+.msg{
+    min-height:20px;
+    margin-top:12px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.error{
+    color:#b91c1c;
+}
+
+.success{
+    color:#15803d;
+}
+
+.shake{
+    animation:shake .3s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-7px)}
+    50%{transform:translateX(7px)}
+    75%{transform:translateX(-7px)}
+}
+@media(max-width:480px){
+    body{
+        align-items:flex-end;
+        padding-bottom:45px;
+    }
+
+    .login-box{
+        width:100%;
+        padding:18px 20px;
+    }
+
+    .logo{
+        width:75px;
+        height:75px;
+    }
+
+}
+.top-header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background:transparent;
+    color:rgb(62, 25, 2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:.5px;
+    z-index:1000;
+
+}
+.login-ganesh-circle{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:5px solid #8b5e3c;
+    background:#fff7e8;
+    box-shadow:0 0 18px rgba(244, 108, 4, 0.953);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+    overflow:hidden;
+}
+
+.login-ganesh-circle img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+}
+
+/* PC VIEW ONLY */
+@media(min-width:769px){
+    .login-ganesh-circle{
+        top:100px;
+        width:260px;
+        height:260px;
+    }
+
+    .login-ganesh-circle img{
+        width:100%;
+        height:100%;
+    }
+}
+
+/* MOBILE VIEW */
+@media(max-width:480px){
+    .login-ganesh-circle{
+        top:200px;
+        width:220px;
+        height:220px;
+        border:4px solid #8b5e3c;
+    }
+
+    .login-ganesh-circle img{
+        width:100%;
+        height:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+    <header class="top-header">
+    Ajjaram Brass Sourcing
+</header>
+<div class="login-ganesh-circle">
+    <img src="images/login.webp" alt="Ganesha">
+</div>
+<div class="login-box">
+
+    <img src="images/abs1.webp" class="logo" alt="Ajjaram Brass">
+
+    <h2>Login or Sign up</h2>
+    <p>Enter mobile number to continue your order</p>
+
+    
+   <!-- MOBILE SECTION -->
+<div id="mobileSection">
+    <div class="input-box" id="mobileBox">
+        <span>+91</span>
+        <input type="tel" id="mobileInput" maxlength="10" placeholder="Mobile number">
+    </div>
+</div>
+
+<!-- OTP SECTION -->
+<div id="otpSection" class="otp-section">
+    <div class="input-box" id="otpBox">
+        <input type="tel" id="otpInput" maxlength="6" placeholder="Enter OTP">
+    </div>
+
+    <button onclick="verifyOtp()">Login</button>
+</div>
+
+    <div class="msg" id="msg"></div>
+
+</div>
+
+<script>
+const fixedOtp = "123456";
+
+const mobileInput = document.getElementById("mobileInput");
+const otpInput = document.getElementById("otpInput");
+const msg = document.getElementById("msg");
+
+/* GET PRODUCT DATA FROM LOGIN URL */
+const params = new URLSearchParams(window.location.search);
+
+const productName = params.get("name") || "";
+const productPrice = params.get("price") || "";
+const productOld = params.get("old") || "";
+const productImg = params.get("img") || "";
+
+/* number only */
+mobileInput.addEventListener("input", function(){
+    this.value = this.value.replace(/[^0-9]/g, "");
+
+    if(this.value.length === 10){
+        localStorage.setItem("ajjaramLoginMobile", this.value);
+
+        document.getElementById("otpSection").style.display = "block";
+    
+
+        setTimeout(()=>{
+            otpInput.focus();
+        },100);
+    }else{
+        document.getElementById("otpSection").style.display = "none";
+        msg.innerText = "";
+    }
+});
+
+otpInput.addEventListener("input", function(){
+    this.value = this.value.replace(/[^0-9]/g, "");
+});
+
+
+
+function verifyOtp(){
+    const otp = otpInput.value.trim();
+    const mobile = localStorage.getItem("ajjaramLoginMobile");
+
+    if(otp.length !== 6){
+        showMessage("Enter valid 6 digit OTP", "error", "otpBox");
+        return;
+    }
+
+    if(otp !== fixedOtp){
+        showMessage("Wrong OTP. Try again.", "error", "otpBox");
+        return;
+    }
+
+    localStorage.setItem("ajjaramLoggedIn", "true");
+localStorage.setItem("ajjaramUserMobile", mobile);
+localStorage.setItem("ajjaramLoginMobile", mobile);
+
+    showMessage("Login successful", "success");
+
+    setTimeout(() => {
+        if(productName && productPrice){
+            window.location.href =
+                "payment.html?name=" + encodeURIComponent(productName) +
+                "&price=" + encodeURIComponent(productPrice) +
+                "&old=" + encodeURIComponent(productOld) +
+                "&img=" + encodeURIComponent(productImg);
+        }else{
+            window.location.href = "index.html";
+        }
+    }, 800);
+}
+
+function showMessage(text, type, boxId){
+    msg.innerText = text;
+    msg.className = "msg " + type;
+
+    if(boxId){
+        const box = document.getElementById(boxId);
+        box.classList.remove("shake");
+
+        setTimeout(() => {
+            box.classList.add("shake");
+        }, 10);
+    }
+}
+</script>
+
+</body>
+</html>

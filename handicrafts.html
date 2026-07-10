@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handicrafts</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family:emoji;
+    background:#f5deb3;
+    background-size:400% 400%;
+    animation:bg 8s ease infinite;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* MENU */
+.menu-toggle{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:26px;
+    cursor:pointer;
+    z-index:1001;
+}
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    z-index:999;
+}
+
+.side-menu{
+    position:absolute;
+    top:60px;      /* below header/menu icon */
+    left:10px;
+    width:220px;
+    background:#fff7d8;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    transition:0.3s;
+    z-index:1000;
+
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+}
+
+.side-menu.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.side-menu.active{ left:0; }
+.overlay.active{ display:block; }
+
+.side-menu a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:#333;
+    border-bottom:1px solid #eee;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:80px 20px 20px;
+}
+
+@media(max-width:1024px){
+    .products{ grid-template-columns:repeat(3,1fr); }
+}
+
+@media(max-width:768px){
+    .products{ grid-template-columns:repeat(2,1fr); }
+}
+
+.product-card{
+      background: linear-gradient(-45deg,
+        
+        #faf9f7,
+       
+        
+        #fa870c74
+    );
+    border-radius:12px;
+    padding:10px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(251, 15, 15, 0.868);
+    cursor:pointer;
+    position:relative;
+}
+
+.product-card img{
+    width:170px;
+    height: 140px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.product-card h3{ font-size:14px; }
+.product-card p{ color:#8b5e3c; font-weight:bold; }
+
+/* WISH ICON */
+.wish-icon{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:18px;
+    cursor:pointer;
+    background:white;
+    padding:6px;
+    border-radius:50%;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+.top-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:transparent;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+/* ICONS */
+.header-icons{
+    display:flex;
+    gap:15px;
+}
+
+.icon{
+    font-size:18px;
+    cursor:pointer;
+    padding:10px;
+    border-radius:50%;
+}
+
+.icon:hover{
+    background:#f2f2f2;
+}
+
+/* SEARCH BOX */
+.search-box{
+    display:none;
+    position:fixed;
+    top:60px;
+    right:20px;
+    background:white;
+    padding:10;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+.back-row{
+    padding:10px 15px;
+}
+
+.back-btn{
+    background:#8b5e3c;
+    color:white;
+    padding:8px 12px;
+    border-radius:6px;
+    text-decoration:none;
+    display:inline-block;
+}
+.wish-icon i{
+    color:black;
+    transition:0.3s;
+}
+
+.wish-icon i.fa-solid{
+    color:red;
+}
+.search-box{
+    display:none;
+    position:fixed;   /* better than absolute */
+    top:83px;
+    right:20px;
+
+    width:300px;
+    max-width:90%;
+
+    background:white;
+    padding:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    border-radius:10px;
+
+    z-index:3000;   /* IMPORTANT: stays above everything */
+}
+
+.search-box input{
+    padding:8px;
+    width:70%;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+}
+
+.search-box button{
+    padding:8px 10px;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+.old-price{
+    text-decoration:line-through;
+    color:#888;
+    font-size:13px;
+    margin-top:2px;
+}
+
+.rating{
+    color:#ff9800;
+    font-size:13px;
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.rating span{
+    color:#555;
+    font-size:12px;
+}
+.cart-icon-wrap{
+    position:relative;
+}
+
+#cartCount{
+    position:absolute;
+    top:1px;
+    right:1px;
+    min-width:18px;
+    height:18px;
+    padding:0 5px;
+    background:#ff1c1c;
+    color:white;
+    font-size:10px;
+    font-weight:bold;
+    border-radius:20px;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    line-height:18px;
+    font-family:Arial, sans-serif;
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <div class="header-left">
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        
+    </div>
+
+    <div class="header-icons">
+
+        <div class="icon" onclick="toggleSearch()">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="icon" onclick="goWishlist()">
+            <i class="far fa-heart"></i>
+        </div>
+
+        <div class="icon cart-icon-wrap" onclick="goCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <b id="cartCount">0</b>
+</div>
+
+    </div>
+
+
+
+</header>
+<div class="back-row">
+    <a href="home.html" class="back-btn">← Back</a>
+</div>
+<!-- SEARCH BOX -->
+<div id="searchBox" class="search-box">
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <button onclick="doSearch()">Search</button>
+</div>
+
+<!-- MENU -->
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="side-menu" id="sideMenu">
+    <a href="home.html"> Home</a>
+    <a href="poojaitems.html"> Pooja Items</a>
+    <a href="kitchen.html">Kitchen Brass</a>
+    <a href="wallhangings.html"> Temple Bells</a>
+    <a href="homedecor.html"> Home Decor</a>
+    <a href="handicrafts.html"> Handicrafts</a>
+    <a href="idols.html"> Idols</a>
+</div>
+
+
+
+<!-- PRODUCTS -->
+<section class="products">
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/611dVUOxiYL._AC_UF350,350_QL80_.jpg"
+    onclick="goProduct('Brass Swan Handicraft',1499,this.src,'handicrafts')">
+    <h3>Brass Swan Handicraft</h3>
+    <p>₹1499</p>
+    <div class="old-price">₹1999</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://ashopi.com/cdn/shop/files/AA4541ST-Photoroom_79f5a109-7aef-48ad-944c-c30329a8f153.jpg?v=1764230033&width=1946"
+    onclick="goProduct('Brass Peacock Showpiece',1899,this.src,'handicrafts')">
+    <h3>Brass Peacock Showpiece</h3>
+    <p>₹1899</p>
+    <div class="old-price">₹2499</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://www.indianshelf.in/file/product/2024-09/85027Indian-Handcrafted-Brass-Elephant-Statue-in-Pair-for-Decoration-NSP-364-1.jpg"
+    onclick="goProduct('Brass Elephant Pair',2499,this.src,'handicrafts')">
+    <h3>Brass Elephant Pair</h3>
+    <p>₹2499</p>
+    <div class="old-price">₹3299</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/91p5VQgYPPL._AC_UF894,1000_QL80_.jpg"
+    onclick="goProduct('Brass Horse Statue',2199,this.src,'handicrafts')">
+    <h3>Brass Horse Statue</h3>
+    <p>₹2199</p>
+    <div class="old-price">₹2899</div>
+    <div class="rating">⭐⭐⭐⭐☆ <span>(4.6)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/81mhd9K6V+L.jpg"
+    onclick="goProduct('Brass Camel Showpiece',1699,this.src,'handicrafts')">
+    <h3>Brass Camel Showpiece</h3>
+    <p>₹1699</p>
+    <div class="old-price">₹2299</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/500322316/YP/KP/FI/71940382/brass-dancing-shiva-parvati-statue-500x500.jpg"
+    onclick="goProduct('Brass Dancing Lady',2799,this.src,'handicrafts')">
+    <h3>Brass Dancing Lady</h3>
+    <p>₹2799</p>
+    <div class="old-price">₹3599</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/81gs0+P8YZL.jpg"
+    onclick="goProduct('Brass Village Cart',3299,this.src,'handicrafts')">
+    <h3>Brass Village Cart</h3>
+    <p>₹3299</p>
+    <div class="old-price">₹4199</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://5.imimg.com/data5/IOS/Default/2024/8/447165296/CI/MN/EJ/20875203/product-jpeg-500x500.png"
+    onclick="goProduct('Brass Musician Set',3599,this.src,'handicrafts')">
+    <h3>Brass Musician Set</h3>
+    <p>₹3599</p>
+    <div class="old-price">₹4599</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(5.0)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://5.imimg.com/data5/SELLER/Default/2026/1/573071676/UT/JY/GE/84767355/brass-bullock-cart.jpg"
+    onclick="goProduct('Brass Bullock Cart',3899,this.src,'handicrafts')">
+    <h3>Brass Bullock Cart</h3>
+    <p>₹3899</p>
+    <div class="old-price">₹4999</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://www.ecraftindia.com/cdn/shop/files/BAO509_main_hd.jpg?v=1713875459"
+    onclick="goProduct('Brass Deer Showpiece',1599,this.src,'handicrafts')">
+    <h3>Brass Deer Showpiece</h3>
+    <p>₹1599</p>
+    <div class="old-price">₹2199</div>
+    <div class="rating">⭐⭐⭐⭐☆ <span>(4.5)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71dJ0sLthpL._AC_UF894,1000_QL80_.jpg"
+    onclick="goProduct('Brass Turtle Artifact',899,this.src,'handicrafts')">
+    <h3>Brass Turtle Artifact</h3>
+    <p>₹899</p>
+    <div class="old-price">₹1299</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://vedanshcraft.com/cdn/shop/products/KRS_7634.jpg?v=1661864093"
+    onclick="goProduct('Brass Owl Figurine',1299,this.src,'handicrafts')">
+    <h3>Brass Owl Figurine</h3>
+    <p>₹1299</p>
+    <div class="old-price">₹1799</div>
+    <div class="rating">⭐⭐⭐⭐☆ <span>(4.6)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/g/8e492f43afb147d1abb52adcf3ef5e71/zbxt1xm08tsu2fs-640x640.jpeg"
+    onclick="goProduct('Brass Ship Model',4599,this.src,'handicrafts')">
+    <h3>Brass Ship Model</h3>
+    <p>₹4599</p>
+    <div class="old-price">₹5999</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71yJw8tVNvL._AC_UF894,1000_QL80_.jpg"
+    onclick="goProduct('Brass Vintage Clock',4999,this.src,'handicrafts')">
+    <h3>Brass Vintage Clock</h3>
+    <p>₹4999</p>
+    <div class="old-price">₹6499</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(5.0)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/81tJRTUPH+L.jpg"
+    onclick="goProduct('Brass Chariot Handicraft',5499,this.src,'handicrafts')">
+    <h3>Brass Chariot Handicraft</h3>
+    <p>₹5499</p>
+    <div class="old-price">₹6999</div>
+    <div class="rating">⭐⭐⭐⭐⭐ <span>(5.0)</span></div>
+</div>
+
+</section>
+
+<script>
+    /* CART COUNT */
+function updateCartCount(){
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = document.getElementById("cartCount");
+
+    if(!cartCount) return;
+
+    let totalQty = 0;
+
+    cart.forEach(item => {
+        totalQty += Number(item.qty) || 1;
+    });
+
+    cartCount.innerText = totalQty;
+
+    if(totalQty === 0){
+        cartCount.style.display = "none";
+    }else{
+        cartCount.style.display = "flex";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateCartCount);
+window.addEventListener("pageshow", updateCartCount);
+updateCartCount();
+
+/* BACK */
+function goBack(){
+    window.history.back();
+}
+
+/* SEARCH */
+function toggleSearch(){
+    const box = document.getElementById("searchBox");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function doSearch(){
+    const value = document.getElementById("searchInput").value.toLowerCase();
+    document.querySelectorAll(".product-card").forEach(card=>{
+        card.style.display = card.innerText.toLowerCase().includes(value) ? "block" : "none";
+    });
+}
+
+/* NAV ICONS */
+function goWishlist(){
+    window.location.href="wishlist.html";
+}
+
+function goCart(){
+    window.location.href="cart.html";
+}
+
+/* PRODUCT NAV */
+function goProduct(name, price, img){
+    window.location.href =
+    `product.html?name=${encodeURIComponent(name)}
+    &price=${encodeURIComponent(price)}
+    &img=${encodeURIComponent(img)}
+    &category=handicrafts`;
+}
+
+/* MENU */
+/* MENU */
+const menu = document.getElementById("sideMenu");
+const overlay = document.getElementById("overlay");
+
+document.querySelectorAll(".menu-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        menu.classList.add("active");
+        overlay.classList.add("active");
+    });
+});
+
+overlay.onclick = () => {
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
+};
+/* WISHLIST HEART - ADD / REMOVE PRODUCT */
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+document.querySelectorAll(".wish-icon").forEach(icon => {
+
+    const card = icon.closest(".product-card");
+    const heart = icon.querySelector("i");
+
+    const itemName = card.querySelector("h3").innerText.trim();
+
+    // Show red heart if already wishlisted
+    const alreadyAdded = wishlist.find(item => item.name === itemName);
+
+    if(alreadyAdded){
+        heart.classList.remove("fa-regular");
+        heart.classList.add("fa-solid");
+        heart.style.color = "red";
+    }
+
+    icon.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const card = this.closest(".product-card");
+
+        const name = card.querySelector("h3").innerText.trim();
+        const price = card.querySelector("p").innerText.trim();
+        const old = card.querySelector(".old-price")
+            ? card.querySelector(".old-price").innerText.trim()
+            : "";
+        const img = card.querySelector("img").src;
+
+        const item = {
+            name: name,
+            price: price,
+            old: old,
+            img: img,
+            image: img,
+            category: "poojaitems"
+        };
+
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+        const exists = wishlist.find(product => product.name === name);
+
+        if(exists){
+            wishlist = wishlist.filter(product => product.name !== name);
+
+            heart.classList.remove("fa-solid");
+            heart.classList.add("fa-regular");
+            heart.style.color = "black";
+        }else{
+            wishlist.push(item);
+
+            heart.classList.remove("fa-regular");
+            heart.classList.add("fa-solid");
+            heart.style.color = "red";
+        }
+
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    });
+
+});
+</script>
+<script src="products-data.js"></script>
+<script src="common-search.js"></script>
+</body>
+</html>

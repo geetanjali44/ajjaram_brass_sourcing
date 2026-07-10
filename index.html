@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajjaram Brass Welcome</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:emoji;
+    position:relative;
+}
+
+/* BLUR BACKGROUND IMAGE */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background-image:url("images/ganesh.webp");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    filter:blur(3px);
+    transform:scale(1.04);
+    z-index:-3;
+}
+
+/* DARK TEMPLE OVERLAY */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(80, 28, 5, 0.42);
+    z-index:-2;
+}
+
+/* PARTICLE CANVAS */
+#particleCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    pointer-events:none;
+}
+
+/* MAIN CONTAINER */
+.container{
+    width:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 20px 30px;
+    position:relative;
+    z-index:5;
+}
+
+/* COMPANY LOGO */
+.logo{
+    position:fixed;
+    top:20px;
+    left:20px;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:contain;
+    
+    padding:4px;
+    border:3px solid gold;
+    box-shadow:0 0 15px gold;
+    z-index:20;
+}
+
+/* HEADING */
+h1{
+    color:#f5f3f0;
+    font-size:36px;
+    margin-bottom:10px;
+    line-height:1.25;
+}
+
+p{
+    color:#f9f4f4;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+/* GANESHA WRAPPER */
+.ganesha-wrapper{
+    position:relative;
+    width:270px;
+    height:270px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+/* GANESHA IMAGE */
+.ganesha{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid gold;
+    box-shadow:0 0 35px rgba(255,215,0,0.8);
+    background:transparent;
+    display:block;
+}
+
+/* FLOWERS ONLY ON GANESHA */
+#flowerContainer{
+    position:absolute;
+    inset:-40px;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:10;
+}
+
+.flower{
+    position:absolute;
+    top:-80px;
+    font-size:24px;
+    animation:premiumFall 4s linear forwards;
+}
+
+@keyframes premiumFall{
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:1;
+    }
+
+    25%{
+        transform:translateY(70px) translateX(-10px) rotate(90deg);
+    }
+
+    50%{
+        transform:translateY(140px) translateX(10px) rotate(180deg);
+    }
+
+    75%{
+        transform:translateY(220px) translateX(-8px) rotate(270deg);
+    }
+
+    100%{
+        transform:translateY(320px) translateX(8px) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* ENTER BUTTON */
+.enter-btn{
+    margin-top:25px;
+    padding:14px 40px;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    color:white;
+    font-family:emoji;
+    background:linear-gradient(45deg,#ff5900,#ff4000);
+    box-shadow:0 0 20px rgba(255,215,0,0.6);
+    transition:0.3s;
+}
+
+.enter-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 30px rgba(255,215,0,0.9);
+}
+
+/* MOBILE FIX */
+@media(max-width:768px){
+
+    body::before{
+        filter:blur(2px);
+        transform:scale(1.02); /* fixed mobile zoom */
+        background-position:center;
+    }
+
+    .container{
+        min-height:100dvh;
+        padding:80px 16px 24px;
+        justify-content:center;
+    }
+
+    .logo{
+        width:62px;
+        height:62px;
+        top:14px;
+        left:14px;
+        padding:3px;
+    }
+
+    h1{
+        font-size:24px;
+        max-width:330px;
+    }
+
+    p{
+        font-size:16px;
+        margin-bottom:20px;
+    }
+
+    .ganesha-wrapper{
+        width:225px;
+        height:225px;
+    }
+
+    .ganesha{
+        width:215px;
+        height:215px;
+        border-width:4px;
+    }
+
+    #flowerContainer{
+        inset:-28px;
+    }
+
+    .flower{
+        font-size:21px;
+    }
+
+    .enter-btn{
+        font-size:16px;
+        padding:12px 30px;
+        margin-top:22px;
+    }
+}
+
+/* SMALL MOBILE */
+@media(max-width:380px){
+
+    h1{
+        font-size:21px;
+    }
+
+    p{
+        font-size:15px;
+    }
+
+    .ganesha-wrapper{
+        width:205px;
+        height:205px;
+    }
+
+    .ganesha{
+        width:195px;
+        height:195px;
+    }
+
+    .enter-btn{
+        font-size:15px;
+        padding:11px 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particleCanvas"></canvas>
+
+<div class="container">
+
+    <img src="images/abs1.webp" alt="Logo" class="logo">
+
+    <div class="welcome-text">
+        <h1>Welcome to Ajjaram Brass Sourcing</h1>
+        <p>Premium Brass Collections</p>
+    </div>
+
+    <div class="ganesha-wrapper">
+        <img src="images/ganesh2.webp" alt="Ganesha" class="ganesha">
+        <div id="flowerContainer"></div>
+    </div>
+
+    <button class="enter-btn" onclick="goHome()">
+        Enter Store
+    </button>
+
+</div>
+
+<script>
+/* FLOWERS ONLY ON GANESHA */
+const flowerContainer = document.getElementById("flowerContainer");
+
+function createFlower(){
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+
+    const flowers = ["🌸","🌺","🌼","🏵️"];
+    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+
+    flower.style.left = Math.random() * 90 + "%";
+    flower.style.fontSize = (18 + Math.random() * 12) + "px";
+    flower.style.animationDuration = (3 + Math.random() * 1.5) + "s";
+
+    flowerContainer.appendChild(flower);
+
+    setTimeout(()=>{
+        flower.remove();
+    },4500);
+}
+
+setInterval(createFlower,350);
+
+function goHome(){
+    window.location.href = "home.html";
+}
+
+/* PREMIUM FLOATING BACKGROUND PARTICLES */
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+let particles = [];
+
+function createParticles(){
+    particles = [];
+
+    for(let i = 0; i < 60; i++){
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 3 + 1,
+            speedY: Math.random() * 0.8 + 0.2,
+            speedX: (Math.random() - 0.5) * 0.4
+        });
+    }
+}
+
+createParticles();
+
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+
+        const gradient = ctx.createRadialGradient(
+            p.x,p.y,0,
+            p.x,p.y,p.size * 4
+        );
+
+        gradient.addColorStop(0,"rgba(255,215,0,0.8)");
+        gradient.addColorStop(1,"rgba(255,215,0,0)");
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        p.y -= p.speedY;
+        p.x += p.speedX;
+
+        if(p.y < -20){
+            p.y = canvas.height + 20;
+            p.x = Math.random() * canvas.width;
+        }
+    });
+
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+window.addEventListener("resize",()=>{
+    resizeCanvas();
+    createParticles();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist</title>
+
+<style>
+body{
+    margin:0;
+    font-family:emoji;
+    min-height:100vh;
+    background:#f5deb3;
+}
+
+/* HEADER */
+header{
+    background:#8b5e3c;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:20px;
+    position:sticky;
+    top:0;
+}
+
+.back{
+    position:absolute;
+    top:18px;
+    left:15px;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+/* TITLE */
+.page-title{
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* CENTER WRAPPER */
+.wrapper{
+    display:flex;
+    justify-content:center;
+}
+
+/* GRID */
+#wishlistContainer{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+
+    max-width:1100px;
+    width:100%;
+    margin:20px;
+    padding:20px;
+
+    background:transparent;
+    border-radius:12px;
+}
+
+/* tablet */
+@media(max-width:1024px){
+    #wishlistContainer{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+
+/* mobile */
+@media(max-width:768px){
+    #wishlistContainer{
+        grid-template-columns:repeat(2, 1fr);
+        gap:12px;
+        padding:12px;
+    }
+}
+
+/* CARD */
+.card{
+     background: linear-gradient(-45deg,
+        
+        #faf9f7,
+       
+        
+        #fa870c74
+    );
+    border-radius:12px;
+    padding:12px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(249, 5, 5, 0.97);
+    position:relative;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+/* IMAGE */
+.card img{
+    width:150px;
+    height:140px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+/* TEXT */
+.card h3{
+    font-size:14px;
+    margin:8px 0 5px;
+}
+
+.price{
+    color:#8b5e3c;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* REMOVE BUTTON */
+.remove{
+    position:absolute;
+    top:8px;
+    right:8px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:26px;
+    height:26px;
+    cursor:pointer;
+}
+
+/* EMPTY */
+.empty{
+    text-align:center;
+    font-size:16px;
+    padding:30px;
+    color:#666;
+}
+.old-price{
+    text-decoration:line-through !important;
+    color:gray !important;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.rating{
+    color:#f5a623;
+    font-size:13px;
+    font-weight:bold;
+    margin-top:4px;
+}
+.card{
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="home.html" class="back">← Back</a>
+    My Wishlist ❤️
+</header>
+
+<div class="page-title">Saved Items</div>
+
+<div class="wrapper">
+    <div id="wishlistContainer"></div>
+</div>
+
+<script>
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const container = document.getElementById("wishlistContainer");
+
+function getRandomRating(){
+    const ratings = [
+        "⭐⭐⭐⭐☆ (4.1)",
+        "⭐⭐⭐⭐☆ (4.2)",
+        "⭐⭐⭐⭐☆ (4.3)",
+        "⭐⭐⭐⭐☆ (4.4)",
+        "⭐⭐⭐⭐⭐ (4.5)",
+        "⭐⭐⭐⭐⭐ (4.6)",
+        "⭐⭐⭐⭐⭐ (4.7)",
+        "⭐⭐⭐⭐⭐ (4.8)",
+        "⭐⭐⭐⭐⭐ (4.9)"
+    ];
+
+    return ratings[Math.floor(Math.random() * ratings.length)];
+}
+
+function renderWishlist(){
+
+    container.innerHTML = "";
+
+    if(wishlist.length === 0){
+        container.innerHTML = `<div class="empty">❤️ No items in wishlist</div>`;
+        return;
+    }
+
+    wishlist.forEach((item, index) => {
+
+        const div = document.createElement("div");
+        div.classList.add("card");
+
+        const productImage = item.img || item.image || "";
+
+        let productPrice = item.price || "";
+        let oldPrice = item.old || item.oldPrice || "";
+        const rating = item.rating || getRandomRating();
+
+        /* FIX: if both prices are saved inside price */
+        const prices = String(productPrice).match(/₹\s?[\d,]+/g);
+
+        if(prices && prices.length >= 2){
+            productPrice = prices[0];
+            oldPrice = prices[1];
+        }else{
+            productPrice = String(productPrice);
+
+            if(productPrice && !productPrice.includes("₹")){
+                productPrice = "₹" + productPrice;
+            }
+
+            if(oldPrice && !String(oldPrice).includes("₹")){
+                oldPrice = "₹" + oldPrice;
+            }
+        }
+
+        div.innerHTML = `
+            <button class="remove" onclick="removeItem(event, ${index})">×</button>
+
+            <img src="${productImage}" alt="${item.name}">
+
+            <h3>${item.name}</h3>
+
+            <div class="price">${productPrice}</div>
+
+            ${oldPrice ? `<div class="old-price">${oldPrice}</div>` : ""}
+
+            <div class="rating">${rating}</div>
+        `;
+
+        div.addEventListener("click", function(){
+            const cleanPrice = String(productPrice).replace("₹", "").replace(",", "").trim();
+            const cleanOldPrice = String(oldPrice).replace("₹", "").replace(",", "").trim();
+
+            window.location.href =
+                "product.html?name=" + encodeURIComponent(item.name) +
+                "&price=" + encodeURIComponent(cleanPrice) +
+                "&old=" + encodeURIComponent(cleanOldPrice) +
+                "&img=" + encodeURIComponent(productImage);
+        });
+
+        container.appendChild(div);
+    });
+}
+function removeItem(event, index){
+    event.stopPropagation();
+
+    wishlist.splice(index,1);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    renderWishlist();
+}
+
+renderWishlist();
+</script>
+
+</body>
+</html>

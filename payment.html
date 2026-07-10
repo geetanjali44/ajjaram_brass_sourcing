@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment - Ajjaram Brass</title>
+
+<link rel="stylesheet" href="payment.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header class="checkout-header">
+    <div class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <div>
+        <h2>Checkout</h2>
+        <p>Ajjaram Brass Sourcing</p>
+    </div>
+</header>
+
+<div class="step-bar">
+    <div class="step active">
+        <span>1</span>
+        <p>Address</p>
+    </div>
+
+    <div class="line active"></div>
+
+    <div class="step active">
+        <span>2</span>
+        <p>Payment</p>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step">
+        <span>3</span>
+        <p>Tracking</p>
+    </div>
+</div>
+
+<main class="checkout-layout">
+
+    <section class="left-section">
+
+        <!-- PRODUCT CARD -->
+        <div class="card product-card">
+            <h3>Review Item</h3>
+
+            <div class="product-info">
+                <img id="productImg" src="" alt="Product">
+
+                <div>
+                    <h4 id="productName"></h4>
+
+                    <p class="rating">⭐⭐⭐⭐⭐ <span>4.5</span></p>
+
+                    <p>
+                        <span class="price" id="productPrice"></span>
+                        <span class="old-price" id="productOld"></span>
+                    </p>
+
+                    <p class="stock">In stock</p>
+                    <p class="small">Sold by Ajjaram Brass Sourcing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADDRESS CARD -->
+<div class="card address-card">
+    <div class="address-head">
+        <h3>Delivery Address</h3>
+        <button type="button" onclick="openAddressForm()">Change</button>
+    </div>
+
+    <div id="savedAddressBox" class="saved-address-box"></div>
+
+    <div id="addressForm" class="address-form">
+        <h4 id="addressFormTitle">Add Delivery Address</h4>
+
+        <input type="text" id="addrName" placeholder="Full Name">
+        <input type="tel" id="addrMobile" maxlength="10" placeholder="Mobile Number">
+        <textarea id="addrHouse" placeholder="House No, Street, Area"></textarea>
+
+        <div class="two-col">
+            <input type="text" id="addrCity" placeholder="City">
+            <input type="tel" id="addrPincode" maxlength="6" placeholder="Pincode">
+        </div>
+
+        <button type="button" class="save-address-btn" onclick="saveAddress()">Save Address</button>
+        <button type="button" class="delete-address-btn" onclick="deleteAddress()">Delete Address</button>
+    </div>
+</div>
+
+        <!-- PAYMENT CARD -->
+        <div class="card">
+            <div class="card-title">
+                <h3>Payment Method</h3>
+                <span id="paymentNote">UPI has free delivery</span>
+            </div>
+
+            <label class="payment-option active" data-method="upi">
+                <input type="radio" name="payment" value="upi" checked>
+                <div class="pay-icon">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+
+                <div>
+                    <h4>UPI</h4>
+                    <p>Pay using PhonePe, Google Pay, Paytm or any UPI app</p>
+                </div>
+
+                <strong>FREE</strong>
+            </label>
+
+            <div class="upi-box" id="upiBox">
+                <input type="text" id="upiId" placeholder="Enter UPI ID example: name@upi">
+                <p>This is demo payment. No real money will be deducted.</p>
+            </div>
+
+            <label class="payment-option" data-method="card">
+                <input type="radio" name="payment" value="card">
+                <div class="pay-icon">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+
+                <div>
+                    <h4>Debit / Credit Card</h4>
+                    <p>Pay using card details</p>
+                </div>
+
+                <strong>FREE</strong>
+            </label>
+
+            <div class="card-box" id="cardBox">
+                <input type="text" id="cardNumber" maxlength="16" placeholder="Card Number">
+                <div class="two-col">
+                    <input type="text" id="expiry" placeholder="MM/YY">
+                    <input type="password" id="cvv" maxlength="3" placeholder="CVV">
+                </div>
+                <p>This is demo payment. No real card payment will happen.</p>
+            </div>
+
+            <label class="payment-option" data-method="cod">
+                <input type="radio" name="payment" value="cod">
+                <div class="pay-icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+
+                <div>
+                    <h4>Cash on Delivery</h4>
+                    <p>Pay when product is delivered</p>
+                </div>
+
+                <strong>+ ₹50</strong>
+            </label>
+
+            <div class="cod-box" id="codBox">
+                <i class="fa-solid fa-circle-info"></i>
+                Cash on Delivery adds extra ₹50 shipping charge.
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RIGHT PRICE SUMMARY -->
+    <aside class="right-section">
+
+        <div class="summary-card">
+            <button class="place-btn" onclick="confirmOrder()">
+                Pay & Place Order
+            </button>
+
+            <p class="secure-text">
+                <i class="fa-solid fa-lock"></i>
+                Safe and secure checkout
+            </p>
+
+            <hr>
+
+            <h3>Order Summary</h3>
+
+            <div class="summary-row">
+                <span>Items</span>
+                <b>1</b>
+            </div>
+
+            <div class="summary-row">
+                <span>Item Price</span>
+                <b id="summaryPrice"></b>
+            </div>
+
+            <div class="summary-row">
+                <span>Shipping Charges</span>
+                <b id="shippingCharge"></b>
+            </div>
+
+            <div class="summary-row discount">
+                <span>Discount</span>
+                <b>₹0</b>
+            </div>
+
+            <hr>
+
+            <div class="summary-row total">
+                <span>Order Total</span>
+                <b id="totalAmount"></b>
+            </div>
+
+            <p class="save-text" id="saveText"></p>
+
+            <p class="error-msg" id="errorMsg"></p>
+        </div>
+
+    </aside>
+
+</main>
+
+<!-- MOBILE BOTTOM PAY BAR -->
+<div class="mobile-pay-bar">
+    <div>
+        <p>Total</p>
+        <h3 id="mobileTotal"></h3>
+    </div>
+
+    <button onclick="confirmOrder()">Pay & Place Order</button>
+</div>
+
+<script src="payment.js"></script>
+</body>
+</html>

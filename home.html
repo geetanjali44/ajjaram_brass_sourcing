@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajjaram Brass Sourcing</title>
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:emoji;
+    overflow-x:hidden;
+    background:#f5deb3;
+    background-size:500% 500%;
+    animation:templeGlow 14s ease infinite;
+    position:relative;
+    padding-bottom:75px;
+}
+
+/* floating temple light effect */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,215,0,0.15), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.10), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(184,134,11,0.12), transparent 50%);
+    animation:floatLight 10s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes templeGlow{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes floatLight{
+    0%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
+    100%{transform:translateY(0px)}
+}
+
+/* TOP BAR */
+.top-bar{
+    background:#8b5e3c;
+    color:white;
+    display:flex;
+    justify-content:space-around;
+    padding:10px;
+    font-size:14px;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:transparent;
+    position:sticky;
+    top:0;
+    z-index:2000;
+}
+
+.logo h1{
+    color:#8b5e3c;
+    margin:0;
+}
+
+.logo img{
+    height:55px;
+    width:55px;
+    object-fit:cover;
+    border-radius:50%;
+    border:2px solid #8b5e3c;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.header-icons{
+    display:flex;
+    gap:15px;
+}
+
+.header-icons a{
+    color:#333;
+    font-size:20px;
+    text-decoration:none;
+    background:rgba(234, 156, 37, 0.901);
+    padding:8px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+#loginLogoutBtn.logout-active{
+    background:rgba(234, 156, 37, 0.901);
+    color:#000;
+}
+
+#loginLogoutIcon{
+    color:#000 !important;
+}
+
+/* NAV */
+nav{
+    background:#111;
+    transition:0.3s;
+}
+
+nav ul{
+    display:flex;
+    justify-content:center;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    display:block;
+    padding:15px 20px;
+}
+
+nav.active{
+    display:block;
+}
+
+.menu-toggle{
+    font-size:28px;
+    cursor:pointer;
+    background:transparent;
+    border:none;
+}
+
+/* TOP SCROLL */
+.top-scroll{
+    background:linear-gradient(270deg,#ec7a41,#f88858bd,#fa8d4e,#f6814f);
+    display:flex;
+    align-items:center;
+    padding:8px 10px;
+    position:relative;
+    z-index:1500;
+}
+
+.top-scroll img{
+    width:70px;
+    height:70px;
+    border-radius:60%;
+    object-fit:cover;
+    flex-shrink:0;
+    margin-right:10px;
+}
+
+.scroll-wrapper{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.scroll-wrapper p{
+    margin:0;
+    font-family:emoji;
+    color:white;
+    font-weight:600;
+    font-size:16px;
+    text-align:center;
+    white-space:normal;
+}
+
+.header-line{
+    border:none;
+    height:1px;
+    background:#ddd;
+    margin:0;
+}
+
+/* CATEGORIES */
+.categories{
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
+    padding:15px;
+    padding-left:25%;
+    background:transparent;
+    box-shadow:0 4px 12px rgba(239, 7, 7, 0.08);
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.cat-item{
+    text-decoration:none;
+    text-align:center;
+    color:#333333;
+    min-width:100px;
+}
+
+.cat-item img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #f1660f;
+}
+
+.cat-item p{
+    margin-top:8px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.cat-item:hover img{
+    transform:scale(1.05);
+    transition:0.3s;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+    padding:25px;
+    background:transparent;
+    border-radius:15px;
+    margin:15px;
+}
+
+.product-card{
+    position:relative;
+    width:90%;
+    max-width:100%;
+    min-width:auto;
+    background:linear-gradient(-45deg,#faf9f7,#fa870c74);
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 8px rgb(249, 93, 3);
+    padding:8px;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+
+.product-card img{
+    width:140px;
+    height:140px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-bottom:8px;
+}
+
+.product-card h3{
+    font-size:14px;
+    margin:6px 0;
+}
+
+.product-card p{
+    font-size:14px;
+    color:#8b5e3c;
+    font-weight:bold;
+    margin:5px 0 10px;
+}
+
+.product-card button{
+    width:100%;
+    padding:8px;
+    font-size:12px;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.product-card button:hover{
+    background:#6f452c;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:gray;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.rating{
+    color:#f5a623;
+    font-size:14px;
+    margin-top:4px;
+    font-weight:bold;
+}
+
+.rating span{
+    color:#333;
+    font-size:12px;
+    margin-left:5px;
+}
+
+/* WISHLIST ICON */
+.wish-icon{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:18px;
+    cursor:pointer;
+    background:white;
+    padding:6px;
+    border-radius:50%;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    transition:0.3s;
+    color:black;
+}
+
+.wish-icon.active i{
+    color:red;
+}
+
+.wish-icon i{
+    color:black;
+    transition:0.3s;
+}
+
+.wish-icon i.fa-solid{
+    color:red;
+}
+
+/* SEARCH BOX */
+.search-box{
+    display:none;
+    position:fixed;
+    top:83px;
+    right:20px;
+    width:300px;
+    max-width:90%;
+    background:white;
+    padding:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    border-radius:10px;
+    z-index:3000;
+}
+
+.search-box input{
+    padding:8px;
+    width:70%;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+}
+
+.search-box button{
+    padding:8px 10px;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.search-results{
+    position:fixed;
+    top:120px;
+    right:20px;
+    width:320px;
+    max-height:400px;
+    overflow-y:auto;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    display:none;
+    z-index:4000;
+}
+
+.search-item{
+    display:flex;
+    gap:10px;
+    padding:10px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+    align-items:center;
+}
+
+.search-item img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.search-item h4{
+    margin:0;
+    font-size:13px;
+}
+
+.search-item p{
+    margin:2px 0 0;
+    font-size:12px;
+    color:#8b5e3c;
+    font-weight:bold;
+}
+
+.search-item:hover{
+    background:#f5f5f5;
+}
+/* MENU OVERLAY */
+#overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.48);
+    display:none;
+    z-index:7000;
+}
+
+#overlay.active{
+    display:block;
+}
+
+/* SIDE MENU */
+#sideMenu{
+    position:fixed;
+    top:0;
+    left:0;
+    width:min(82vw, 310px);
+    height:100dvh;
+    background:#fff7d8;
+    z-index:7001;
+    padding:18px 14px;
+    box-shadow:4px 0 18px rgba(0,0,0,0.28);
+    transform:translateX(-105%);
+    transition:transform 0.35s ease;
+    border-top-right-radius:18px;
+    border-bottom-right-radius:18px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+#sideMenu.active{
+    transform:translateX(0);
+}
+
+.menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:14px;
+    border-bottom:1px solid rgba(139,94,60,0.25);
+    margin-bottom:14px;
+}
+
+.menu-header h3{
+    margin:0;
+    font-size:19px;
+    color:#4b2500;
+    font-weight:900;
+}
+
+.close-menu-btn{
+    border:none;
+    background:transparent;
+    color:#4b2500;
+    font-size:36px;
+    line-height:1;
+    cursor:pointer;
+    padding:0 4px;
+}
+
+#sideMenu ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+#sideMenu ul li{
+    border-bottom:1px solid rgba(139,94,60,0.22);
+}
+
+#sideMenu ul li a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#3b250e;
+    font-size:15px;
+    font-weight:700;
+    padding:14px 8px;
+}
+
+#sideMenu ul li a i{
+    width:22px;
+    text-align:center;
+    color:#8b5e3c;
+}
+
+@media(max-width:480px){
+    #sideMenu{
+        width:84vw;
+        max-width:310px;
+    }
+}
+
+/* SHIMMER SLIDER */
+.shimmer-slider{
+    width:60%;
+    max-width:100%;
+    margin:15px auto;
+    height:400px;
+    position:relative;
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 2px 8px rgb(249, 93, 3);
+    background:linear-gradient(270deg,#b8860b,#fff8dc,#d4af37,#2c1b08);
+    background-size:400% 400%;
+    animation:shimmerBG 6s ease infinite;
+}
+
+@keyframes shimmerBG{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.shimmer-slider .slide{
+    position:absolute;
+    width:100%;
+    height:400px;
+    opacity:0;
+    transition:1s ease;
+}
+
+.shimmer-slider .slide.active{
+    opacity:1;
+}
+
+.shimmer-slider img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    background:transparent;
+    mix-blend-mode:multiply;
+}
+
+.caption{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    background:rgba(0,0,0,0.4);
+    padding:6px 12px;
+    border-radius:8px;
+    backdrop-filter:blur(5px);
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:64px;
+    background:#fff7e8;
+    border-top:1px solid rgba(139,94,60,0.25);
+    box-shadow:0 -4px 18px rgba(0,0,0,0.18);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:5000;
+}
+
+.bottom-nav-item{
+    position:relative;
+    text-decoration:none;
+    color:#4b2500;
+    font-size:12px;
+    font-weight:bold;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    width:33.33%;
+}
+
+.bottom-nav-item i{
+    font-size:21px;
+    color:#8b5e3c;
+}
+
+.bottom-nav-item:hover i,
+.bottom-nav-item:hover span{
+    color:#f1660f;
+}
+
+.cart-bottom{
+    position:relative;
+}
+
+#cartCount{
+    position:absolute;
+    top:6px;
+    left:calc(50% + 12px);
+    right:auto;
+    transform:translateX(-50%);
+    min-width:18px;
+    height:18px;
+    padding:0 5px;
+    background:#ff1c1c;
+    color:white;
+    font-size:10px;
+    font-weight:bold;
+    border-radius:20px;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    line-height:18px;
+    z-index:10;
+}
+
+/* ================= PROFILE LEFT SIDE DRAWER FIXED ================= */
+
+/* PROFILE OVERLAY */
+.profile-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    display:none;
+    z-index:6000;
+}
+
+.profile-overlay.active{
+    display:block;
+}
+
+/* PROFILE DRAWER */
+.profile-drawer{
+    position:fixed;
+    top:0;
+    left:0;
+    width:min(86vw, 390px);
+    max-width:390px;
+    height:100dvh;
+    background:#fff7e8;
+    z-index:6001;
+    box-shadow:4px 0 18px rgba(0,0,0,0.25);
+    padding:22px 16px;
+    padding-left:calc(16px + env(safe-area-inset-left));
+    padding-bottom:calc(22px + env(safe-area-inset-bottom));
+    overflow-y:auto;
+    overflow-x:hidden;
+    transform:translateX(-105%);
+    transition:transform 0.35s ease;
+    border-top-right-radius:18px;
+    border-bottom-right-radius:18px;
+}
+
+.profile-drawer.active{
+    transform:translateX(0);
+}
+
+/* PROFILE HEADER */
+.profile-drawer-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border-bottom:1px solid rgba(139,94,60,0.25);
+    padding-bottom:18px;
+    position:relative;
+}
+
+.profile-drawer-header i{
+    font-size:42px;
+    color:#8b5e3c;
+    flex-shrink:0;
+}
+
+.profile-drawer-header h3{
+    color:#4b2500;
+    font-size:22px;
+    margin:0;
+}
+
+.profile-drawer-header p{
+    margin:4px 0 0;
+    color:#8b5e3c;
+    font-weight:bold;
+}
+
+/* CLOSE BUTTON */
+.profile-close-btn{
+    position:absolute;
+    right:4px;
+    top:0;
+    border:none;
+    background:transparent;
+    font-size:34px;
+    color:#4b2500;
+    cursor:pointer;
+    width:auto;
+    padding:0;
+    line-height:1;
+}
+
+/* PROFILE INFO CARD */
+.profile-info{
+    margin-top:25px;
+    background:#f5deb3;
+    padding:16px;
+    border-radius:14px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+.profile-label{
+    font-size:14px;
+    color:#6b4a2b;
+    margin:0 0 6px;
+}
+
+.mobile-label{
+    margin-top:16px;
+}
+
+.profile-info h4{
+    color:#111;
+    font-size:20px;
+    margin:0;
+    word-break:break-word;
+}
+
+/* SETTINGS */
+.profile-settings{
+    margin-top:25px;
+}
+
+.profile-settings h3{
+    color:#4b2500;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.address-toggle-btn{
+    width:100%;
+    border:none;
+    background:#f5deb3;
+    color:#4b2500;
+    padding:13px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+    margin-bottom:10px;
+}
+
+.address-toggle-btn i{
+    margin-right:8px;
+}
+
+/* ADDRESS / EDIT PROFILE BOX */
+.address-settings-box{
+    display:none;
+    margin-top:4px;
+    margin-bottom:14px;
+    background:#fffaf0;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid rgba(139,94,60,0.18);
+}
+
+.address-settings-box.active{
+    display:block;
+}
+
+.address-settings-box input,
+.address-settings-box textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+    box-sizing:border-box;
+}
+
+.address-settings-box textarea{
+    min-height:70px;
+    resize:none;
+}
+
+.profile-two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.save-address-profile-btn{
+    width:100%;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    padding:12px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TERMS / PRIVACY / ABOUT BOX */
+.profile-info-box{
+    display:none;
+    margin-top:4px;
+    margin-bottom:14px;
+    background:#fffaf0;
+    color:#4b2500;
+    padding:13px;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.5;
+    border:1px solid rgba(139,94,60,0.18);
+}
+
+.profile-info-box.active{
+    display:block;
+}
+
+/* DELETE ACCOUNT */
+.delete-account-btn{
+    width:100%;
+    margin-top:4px;
+    border:none;
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:13px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+}
+
+.delete-account-btn i{
+    margin-right:8px;
+}
+
+/* LOGOUT */
+.logout-btn{
+    width:100%;
+    margin-top:25px;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout-btn i{
+    margin-right:8px;
+}
+
+/* TABLET */
+@media(max-width:1024px){
+    .products{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .top-bar{
+        flex-direction:column;
+        text-align:center;
+        gap:5px;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        position:absolute;
+        top:60px;
+        left:0;
+        width:100%;
+        background:#111;
+        z-index:999;
+    }
+
+    nav ul{
+        flex-direction:column;
+    }
+
+    nav ul li{
+        text-align:center;
+        border-bottom:1px solid #333;
+    }
+
+    nav ul li a{
+        padding:12px;
+        border-bottom:1px solid #333;
+    }
+
+    .logo h1{
+        font-size:18px;
+    }
+
+    .header-icons a{
+        font-size:18px;
+    }
+
+    .categories{
+        padding-left:10px;
+    }
+
+    .cat-item img{
+        width:75px;
+        height:75px;
+    }
+
+    .cat-item p{
+        font-size:12px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2, 1fr);
+        gap:12px;
+        padding:15px;
+    }
+
+    .shimmer-slider{
+        width:90%;
+        height:250px;
+    }
+
+    .bottom-nav{
+        height:62px;
+    }
+
+    .bottom-nav-item i{
+        font-size:20px;
+    }
+
+    .bottom-nav-item span{
+        font-size:11px;
+    }
+
+    #cartCount{
+        top:5px;
+        left:calc(50% + 11px);
+        right:auto;
+    }
+
+    .profile-drawer{
+        width:min(86vw, 360px);
+        max-width:360px;
+        height:100dvh;
+        transform:translateX(-105%);
+    }
+
+    .profile-drawer.active{
+        transform:translateX(0);
+    }
+}
+
+/* SMALL MOBILE */
+@media(max-width:480px){
+    .products{
+        grid-template-columns:repeat(2, 1fr);
+    }
+
+    .product-card img{
+        width:100%;
+        height:120px;
+    }
+}
+
+/* VERY SMALL PHONES */
+@media(max-width:380px){
+    .profile-drawer{
+        width:90vw;
+        max-width:90vw;
+    }
+
+    .profile-drawer-header h3{
+        font-size:20px;
+    }
+
+    .profile-info h4{
+        font-size:18px;
+    }
+
+    .profile-two-col{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<div class="top-scroll">
+    <img src="images/abs1.webp" alt="Ajjaram Brass Logo">
+
+    <div class="scroll-wrapper">
+        <p> AJJARAM BRASS SOURCING   PREMIUM BRASS COLLECTION    BEST QUALITY  </p>
+    </div>
+</div>
+<!-- HEADER -->
+
+
+<header>
+
+    <div class="menu-toggle">
+    <i class="fas fa-bars"></i>
+</div>
+
+
+<div class="header-icons">
+    <a href="#"><i class="fas fa-search"></i></a>
+
+    <a href="#"><i class="far fa-heart"></i></a>
+
+    <!-- LOGIN / LOGOUT ICON -->
+ <a href="#" id="loginLogoutBtn" title="Login">
+    <i id="loginLogoutIcon" class="fa-solid fa-user"></i>
+</a>
+</div>
+
+</header>
+
+<hr class="header-line">
+<!-- 🔥 SHIMMER SLIDESHOW SECTION -->
+<div class="shimmer-slider">
+
+    <div class="slide active">
+        <img src="images/slide.webp">
+        
+    </div>
+
+    <div class="slide">
+        <img src="images/slide1.webp">
+        
+    </div>
+
+    <div class="slide">
+        <img src="images/slide5.webp">
+        
+    </div>
+
+</div>
+
+<div class="categories">
+
+    <a href="poojaitems.html" class="cat-item">
+        <img src="https://jainartvilla.in/cdn/shop/files/Brass-puja-thali-10-pc.jpg?v=1717669017">
+        <p>Pooja Items</p>
+    </a>
+
+    <a href="kitchen.html" class="cat-item">
+        <img src="https://kansawalas.com/cdn/shop/files/EMP02337.jpg?v=1723115497&width=1080" alt="Kitchen Brass">
+        <p>Kitchen Brass</p>
+    </a>
+
+    <a href="wallhangings.html" class="cat-item">
+        <img src="https://m.media-amazon.com/images/I/71MilJ6Q1dL._AC_UF894,1000_QL80_.jpg" alt="Temple Bells">
+        <p>Wall Hangings</p>
+    </a>
+
+    <a href="homedecor.html" class="cat-item">
+        <img src="https://m.media-amazon.com/images/I/71xUm8y965L._AC_UF1000,1000_QL80_.jpg" alt="Home Decor">
+        <p>Home Decor</p>
+    </a>
+
+    <a href="handicrafts.html" class="cat-item">
+        <img src="https://bombayantiques.com/cdn/shop/articles/indian-brass-handicrafts-collection_98c4bcbe-ab9e-4ee3-b199-673c87bd5deb.jpg?v=1739540124&width=1100" alt="Antique Brass">
+        <p>Handicrafts</p>
+    </a>
+
+    <a href="idols.html" class="cat-item">
+        <img src="https://www.indianartvilla.in/cdn/shop/collections/IAV-BR-15-228A-02A_540x.jpg?v=1767932152" alt="Contact">
+        <p>Idols</p>
+    </a>
+
+</div>
+
+
+<section class="products">
+
+    <div class="product-card">
+        <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+        <img src="https://budhshiv.com/cdn/shop/collections/superfine-lightweight-brass-idols-collection-548369.jpg?v=1742359534" alt="">
+        <h3>Brass Pooja Thali</h3>
+         <p>₹1,499 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,999</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+
+   
+</div>
+    </div>
+
+    <div class="product-card">
+        <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+        <img src="https://svastika.in/cdn/shop/files/Brass_Standing_Lord_Vishnu_Murti_01.jpg?v=1749808919" alt="">
+        <h3>Brass Krishna Idol</h3>
+        <p>₹2,999 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹3,599</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+
+    
+</div>
+    </div>
+
+    <div class="product-card">
+        <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+        <img src="https://kansawalas.com/cdn/shop/files/EMP02337.jpg" alt="">
+        <h3>Brass Dinner Set</h3>
+        <p>₹4,999 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹5,999</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+    
+</div>
+    </div>
+
+    <div class="product-card">
+        <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+        <img src="https://m.media-amazon.com/images/I/71xUm8y965L._AC_UF1000,1000_QL80_.jpg" alt="">
+        <h3>Brass Home Decor</h3>
+        <p>₹1,899 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹2,499</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.4)</span></div>
+    
+</div>
+    </div>
+
+    </div>
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/81UyN9-kU9L._AC_UF350,350_QL80_.jpg" alt="">
+    <h3>Brass Water Pot</h3>
+    <p>₹1,299 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,699</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://yellowverandah.in/cdn/shop/files/IMG_8537_copy.jpg?v=1759499507&width=1200" alt="">
+    <h3>Brass Serving Bowl</h3>
+    <p>₹899 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,299</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.3)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://ikiru.in/cdn/shop/files/buy-teapot-brass-teapot-set-with-4-glasses-or-tea-kettle-jug-for-serving-by-indian-bartan-on-ikiru-online-store-1.jpg?v=1739209404&width=5760" alt="">
+    <h3>Brass Tea Set</h3>
+    <p>₹2,499 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹3,099</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://brassglobe.com/cdn/shop/files/etched-brass-glass-for-drinking-411595.jpg?v=1742272802&width=2048" alt="">
+    <h3>Brass Glass Set</h3>
+    <p>₹1,599 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,999</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.5)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://nyrakitchenware.in/cdn/shop/files/Pure_pital_Thali_set.jpg?v=1750836519" alt="">
+    <h3>Brass Plate Set</h3>
+    <p>₹3,299 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹3,999</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/61SBg9qrIqL._AC_UF894,1000_QL80_.jpg" alt="">
+    <h3>Brass Storage Container</h3>
+    <p>₹1,799 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹2,199</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.4)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71YQ-feCiTL.jpg" alt="">
+    <h3>Brass Fruit Bowl</h3>
+    <p>₹1,499 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,899</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://zishta.com/cdn/shop/articles/brass-cookware-collection-zishta-traditional-cookware.jpg?v=1744346394&width=1200" alt="">
+    <h3>Brass Cooking Vessel</h3>
+    <p>₹2,999 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹3,699</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71EfEwZABZL.jpg" alt="">
+    <h3>Brass Rice Bowl Set</h3>
+    <p>₹1,099 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,499</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.5)</span></div>
+
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://rukminim2.flixcart.com/image/480/640/xif0q/dinner-set/7/m/f/-original-imahhpz9kwabpggn.jpeg?q=90" alt="">
+    <h3>Brass Dinner Combo</h3>
+    <p>₹4,999 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹5,999</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+</div>
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://zishta.com/cdn/shop/files/Brass-Coffee-Filter-Large-and-Davara-Tumbler-Combo-Zishta-8317-866414.jpg?v=1751696512&width=500" alt="">
+    <h3>Brass Coffee Filter</h3>
+    <p>₹1,199 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,599</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.6)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://www.kanzandmuhul.com/cdn/shop/products/DSC0184-1.jpg?v=1677243660" alt="">
+    <h3>Brass Spice Box</h3>
+   <p>₹1,799 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹2,299</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71VTBsA40RL._AC_UF1000,1000_QL80_.jpg" alt="">
+    <h3>Brass Milk Pot</h3>
+    <p>₹1,499 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,999</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.5)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://darbarcraft.com/cdn/shop/files/WhatsAppImage2024-08-04at10.53.23PM_62_1600x1600.jpg?v=1723060437" alt="">
+    <h3>Brass Ladle Set</h3>
+    <p>₹899 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,299</span></p>
+<div class="rating">⭐⭐⭐⭐ <span>(4.4)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71y-Ifj9NbL.jpg" alt="">
+    <h3>Brass Pickle Jar</h3>
+    <p>₹1,299 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,799</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://brassglobe.com/cdn/shop/files/kansa-bronze-sweet-rasgulla-kheer-bowl-501336.jpg?v=1727734685&width=2048" alt="">
+    <h3>Brass Sweet Bowl</h3>
+    <p>₹699 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,299</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/618-kMVsQ6L._AC_UF894,1000_QL80_.jpg" alt="">
+    <h3>Brass Tiffin Box</h3>
+    <p>₹2,199 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹3,099</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/61Le6YzZoIL._AC_UF350,350_QL80_.jpg" alt="">
+    <h3>Brass Serving Tray</h3>
+    <p>₹1,899 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹2,599</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://m.media-amazon.com/images/I/71mm3xhM+gL._AC_UF350,350_QL80_.jpg" alt="">
+    <h3>Brass Dessert Cup Set</h3>
+    <p>₹999 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹1,599</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(4.7)</span></div>
+</div>
+
+<div class="product-card">
+    <div class="wish-icon"><i class="fa-regular fa-heart"></i></div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf493dLydmJ5UN2tZ0NodJCz9xw5TUw2j_gg&s" alt="">
+    <h3>Brass Traditional kalash</h3>
+    <p>₹5,499 <span style="text-decoration:line-through;color:gray;font-size:12px;">₹6,999</span></p>
+<div class="rating">⭐⭐⭐⭐⭐ <span>(5.0)</span></div>
+</div>
+  
+
+</section>
+
+<div id="searchBox" class="search-box">
+    <div id="searchResults" class="search-results"></div>
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <button onclick="doSearch()">Search</button>
+</div>
+
+<!-- SIDE MENU OVERLAY -->
+<div id="overlay"></div>
+
+<div id="sideMenu">
+    <div class="menu-header">
+        <h3>Brass Collections</h3>
+        <button type="button" id="closeMenuBtn" class="close-menu-btn">×</button>
+    </div>
+
+    <ul>
+        <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="poojaitems.html"><i class="fa-solid fa-om"></i> Pooja Items</a></li>
+        <li><a href="kitchen.html"><i class="fa-solid fa-utensils"></i> Kitchen Brass</a></li>
+        <li><a href="wallhangings.html"><i class="fa-solid fa-bell"></i> Wall Hangings</a></li>
+        <li><a href="homedecor.html"><i class="fa-solid fa-couch"></i> Home Decor</a></li>
+        <li><a href="handicrafts.html"><i class="fa-solid fa-gem"></i> Handicrafts</a></li>
+        <li><a href="idols.html"><i class="fa-solid fa-hands-praying"></i> Idols</a></li>
+    </ul>
+</div>
+<!-- AMAZON STYLE BOTTOM NAV -->
+<div class="bottom-nav">
+
+    <a href="home.html" class="bottom-nav-item">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="order-tracking.html" class="bottom-nav-item">
+        <i class="fa-solid fa-box"></i>
+        <span>My Orders</span>
+    </a>
+
+    <a href="cart.html" class="bottom-nav-item cart-bottom">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+        <b id="cartCount">0</b>
+    </a>
+</div>
+
+<!-- PROFILE SIDE DRAWER -->
+<div id="profileOverlay" class="profile-overlay"></div>
+
+<div id="profileDrawer" class="profile-drawer">
+
+    <div class="profile-drawer-header">
+        <i class="fa-solid fa-circle-user"></i>
+        <div>
+            <h3>User Profile</h3>
+            <p id="profileNameTop">Customer</p>
+        </div>
+
+        <button type="button" id="profileCloseBtn" class="profile-close-btn">×</button>
+    </div>
+
+    <div class="profile-info">
+        <p class="profile-label">Name</p>
+        <h4 id="profileName">Customer</h4>
+
+        <p class="profile-label mobile-label">Mobile Number</p>
+        <h4 id="profileMobile">Not logged in</h4>
+    </div>
+
+    <div class="profile-settings">
+        <h3>
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </h3>
+
+        <button class="address-toggle-btn" onclick="toggleAddressSettings()">
+            <i class="fa-solid fa-location-dot"></i>
+            Change Delivery Address
+        </button>
+
+        <div id="addressSettingsBox" class="address-settings-box">
+            <input type="text" id="profileAddrName" placeholder="Full Name">
+            <input type="tel" id="profileAddrMobile" maxlength="10" placeholder="Mobile Number">
+            <textarea id="profileAddrHouse" placeholder="House No, Street, Area"></textarea>
+
+            <div class="profile-two-col">
+                <input type="text" id="profileAddrCity" placeholder="City">
+                <input type="tel" id="profileAddrPincode" maxlength="6" placeholder="Pincode">
+            </div>
+
+            <button class="save-address-profile-btn" onclick="saveProfileAddress()">
+                Save Address
+            </button>
+        </div>
+    </div>
+
+    <button class="logout-btn" onclick="logoutUser()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </button>
+
+</div>
+<script>
+
+
+
+document.querySelectorAll(".product-card").forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const name = card.querySelector("h3").innerText;
+
+        // current price
+        const priceText = card.querySelector("p").innerText;
+
+        // extract main price (₹1499)
+        const price = priceText.split("₹")[1].split(" ")[0].replace(",", "");
+
+        // extract old price (₹1999)
+        const oldPriceEl = card.querySelector("p span");
+        const oldPrice = oldPriceEl 
+            ? oldPriceEl.innerText.replace("₹", "").replace(",", "").trim()
+            : "";
+
+        const image = card.querySelector("img").src;
+
+        window.location.href =
+        `product.html?name=${encodeURIComponent(name)}
+        &price=${encodeURIComponent(price)}
+        &old=${encodeURIComponent(oldPrice)}
+        &img=${encodeURIComponent(image)}`;
+    });
+
+});
+
+
+
+document.querySelectorAll("nav ul li a").forEach(link => {
+    link.addEventListener("click", () => {
+        nav.classList.remove("active");
+    });
+});
+
+window.addEventListener("scroll", () => {
+
+    const header = document.querySelector("header");
+
+    if(window.scrollY > 50){
+        header.style.position = "sticky";
+        header.style.top = "0";
+        header.style.zIndex = "1000";
+
+        /* ❌ REMOVE background change */
+        header.style.background = "transparent";
+        header.style.boxShadow = "none";
+
+    } else {
+        header.style.background = "transparent";
+        header.style.boxShadow = "none";
+    }
+
+});
+
+const searchIcon = document.querySelector(".fa-search");
+const searchBox = document.getElementById("searchBox");
+
+searchIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    searchBox.style.display =
+        searchBox.style.display === "block" ? "none" : "block";
+
+    // 👉 ADD THIS (show overlay)
+    overlay.classList.add("active");
+});
+
+function doSearch(){
+    const value = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".product-card");
+    const resultBox = document.getElementById("searchResults");
+
+    resultBox.innerHTML = "";
+    
+    if(value.trim() === ""){
+        resultBox.style.display = "none";
+        return;
+    }
+
+    let found = false;
+
+    cards.forEach(card => {
+        const title = card.querySelector("h3").innerText.toLowerCase();
+        const price = card.querySelector("p").innerText;
+        const img = card.querySelector("img").src;
+
+        if(title.includes(value)){
+            found = true;
+
+            const div = document.createElement("div");
+            div.className = "search-item";
+
+            div.innerHTML = `
+                <img src="${img}">
+                <div>
+                    <h4>${card.querySelector("h3").innerText}</h4>
+                    <p>${price}</p>
+                </div>
+            `;
+
+          div.addEventListener("click", () => {
+            overlay.classList.remove("active"); 
+
+    const name = card.querySelector("h3").innerText;
+
+    const priceText = card.querySelector("p").innerText;
+    const price = priceText.split("₹")[1].split(" ")[0].replace(",", "");
+
+    const oldPriceEl = card.querySelector("p span");
+    const oldPrice = oldPriceEl
+        ? oldPriceEl.innerText.replace("₹", "").replace(",", "").trim()
+        : "";
+
+    const image = card.querySelector("img").src;
+
+    // ✅ clear search box
+    document.getElementById("searchInput").value = "";
+
+    // hide results
+    document.getElementById("searchResults").style.display = "none";
+
+    // redirect
+    window.location.href =
+        `product.html?name=${encodeURIComponent(name)}
+        &price=${encodeURIComponent(price)}
+        &old=${encodeURIComponent(oldPrice)}
+        &img=${encodeURIComponent(image)}`;
+});
+
+            resultBox.appendChild(div);
+        }
+    });
+
+    resultBox.style.display = found ? "block" : "none";
+}
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+document.querySelectorAll(".wish-icon").forEach(icon => {
+    icon.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const card = this.closest(".product-card");
+        const heart = this.querySelector("i");
+
+        const priceText = card.querySelector("p").innerText;
+        const oldPriceEl = card.querySelector("p span");
+
+        const mainPrice = priceText.split("₹")[1]
+            ? "₹" + priceText.split("₹")[1].split(" ")[0].trim()
+            : priceText;
+
+        const item = {
+            name: card.querySelector("h3").innerText.trim(),
+            price: mainPrice,
+            oldPrice: oldPriceEl ? oldPriceEl.innerText.trim() : "",
+            image: card.querySelector("img").src,
+            img: card.querySelector("img").src,
+            rating: card.querySelector(".rating") ? card.querySelector(".rating").innerText : ""
+        };
+
+        const index = wishlist.findIndex(p => p.name === item.name);
+
+        if(index !== -1){
+            wishlist.splice(index, 1);
+
+            heart.classList.remove("fa-solid");
+            heart.classList.add("fa-regular");
+            heart.style.color = "black";
+
+            this.classList.remove("active");
+        }else{
+            wishlist.push(item);
+
+            heart.classList.remove("fa-regular");
+            heart.classList.add("fa-solid");
+            heart.style.color = "red";
+
+            this.classList.add("active");
+        }
+
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    });
+});
+
+
+
+const heartIcon = document.querySelector(".fa-heart");
+
+heartIcon.addEventListener("click", () => {
+    window.location.href = "wishlist.html";
+});
+
+document.querySelectorAll(".add-cart-btn").forEach(btn => {
+    btn.addEventListener("click", function(e){
+        e.stopPropagation();
+
+        const card = this.closest(".product-card");
+
+        const item = {
+            name: card.querySelector("h3").innerText,
+            price: card.querySelector("p").innerText,
+            image: card.querySelector("img").src,
+            qty: 1
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push(item);
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        updateCartCount(); // important
+
+        alert("Added to cart!");
+    });
+});
+
+document.querySelector(".fa-heart").addEventListener("click", () => {
+    window.location.href = "wishlist.html";
+});
+const menuToggle = document.querySelector(".menu-toggle");
+const sideMenu = document.getElementById("sideMenu");
+const overlay = document.getElementById("overlay");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+function openMenu(){
+    sideMenu.classList.add("active");
+    overlay.classList.add("active");
+}
+
+function closeMenu(){
+    sideMenu.classList.remove("active");
+    overlay.classList.remove("active");
+
+    if(searchBox){
+        searchBox.style.display = "none";
+    }
+
+    const resultBox = document.getElementById("searchResults");
+    if(resultBox){
+        resultBox.style.display = "none";
+    }
+}
+
+menuToggle.addEventListener("click", openMenu);
+
+if(closeMenuBtn){
+    closeMenuBtn.addEventListener("click", closeMenu);
+}
+
+overlay.addEventListener("click", closeMenu);
+
+
+/* WISHLIST HEART */
+document.querySelectorAll(".wish-icon").forEach(icon => {
+
+    icon.addEventListener("click", function(e) {
+        e.stopPropagation();
+
+        const heart = this.querySelector("i");
+
+        if (heart.classList.contains("fa-regular")) {
+            heart.classList.remove("fa-regular");
+            heart.classList.add("fa-solid");
+            heart.style.color = "red";
+        } else {
+            heart.classList.remove("fa-solid");
+            heart.classList.add("fa-regular");
+            heart.style.color = "black";
+        }
+    });
+
+});
+// 🌟 SHIMMER SLIDER AUTO SWITCH
+let slides = document.querySelectorAll(".shimmer-slider .slide");
+let index = 0;
+
+setInterval(() => {
+
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+
+}, 3000);
+/* PROFILE FACE ICON */
+const loginLogoutBtn = document.getElementById("loginLogoutBtn");
+const loginLogoutIcon = document.getElementById("loginLogoutIcon");
+const profileDrawer = document.getElementById("profileDrawer");
+const profileOverlay = document.getElementById("profileOverlay");
+const profileCloseBtn = document.getElementById("profileCloseBtn");
+
+function updateLoginLogout(){
+    const isLoggedIn = localStorage.getItem("ajjaramLoggedIn") === "true";
+
+    loginLogoutIcon.className = "fa-solid fa-circle-user";
+
+    if(isLoggedIn){
+        loginLogoutBtn.title = "Profile";
+        loginLogoutBtn.classList.add("logout-active");
+    }else{
+        loginLogoutBtn.title = "Login";
+        loginLogoutBtn.classList.remove("logout-active");
+    }
+}
+
+loginLogoutBtn.addEventListener("click", function(e){
+    e.preventDefault();
+
+    const isLoggedIn = localStorage.getItem("ajjaramLoggedIn") === "true";
+
+    if(!isLoggedIn){
+        window.location.href = "loginpage.html";
+        return;
+    }
+
+    openProfileDrawer();
+});
+
+function getCurrentMobile(){
+    let mobile =
+        localStorage.getItem("ajjaramUserMobile") ||
+        localStorage.getItem("ajjaramLoginMobile") ||
+        "";
+
+    if(mobile){
+        localStorage.setItem("ajjaramUserMobile", mobile);
+    }
+
+    return mobile;
+}
+
+function getAddressKey(){
+    const mobile = getCurrentMobile() || "guest";
+    return "ajjaramDeliveryAddress_" + mobile;
+}
+
+function openProfileDrawer(){
+    const mobile = getCurrentMobile();
+    const savedAddress = JSON.parse(localStorage.getItem(getAddressKey())) || null;
+
+    const userName =
+        localStorage.getItem("ajjaramUserName") ||
+        (savedAddress && savedAddress.name) ||
+        "Customer";
+
+    document.getElementById("profileNameTop").innerText = userName;
+    document.getElementById("profileName").innerText = userName;
+    document.getElementById("profileMobile").innerText = mobile ? "+91 " + mobile : "Please login again";
+
+    document.getElementById("profileAddrName").value = savedAddress ? savedAddress.name : userName;
+    document.getElementById("profileAddrMobile").value = savedAddress ? savedAddress.mobile : mobile;
+    document.getElementById("profileAddrHouse").value = savedAddress ? savedAddress.house : "";
+    document.getElementById("profileAddrCity").value = savedAddress ? savedAddress.city : "";
+    document.getElementById("profileAddrPincode").value = savedAddress ? savedAddress.pincode : "";
+
+    profileDrawer.classList.add("active");
+    profileOverlay.classList.add("active");
+}
+
+function closeProfileDrawer(){
+    profileDrawer.classList.remove("active");
+    profileOverlay.classList.remove("active");
+}
+
+function toggleAddressSettings(){
+    document.getElementById("addressSettingsBox").classList.toggle("active");
+}
+
+function saveProfileAddress(){
+    const name = document.getElementById("profileAddrName").value.trim();
+    const mobile = document.getElementById("profileAddrMobile").value.trim();
+    const house = document.getElementById("profileAddrHouse").value.trim();
+    const city = document.getElementById("profileAddrCity").value.trim();
+    const pincode = document.getElementById("profileAddrPincode").value.trim();
+
+    if(name === ""){
+        alert("Enter full name");
+        return;
+    }
+
+    if(mobile.length !== 10 || isNaN(mobile)){
+        alert("Enter valid 10 digit mobile number");
+        return;
+    }
+
+    if(house === ""){
+        alert("Enter house no, street, area");
+        return;
+    }
+
+    if(city === ""){
+        alert("Enter city");
+        return;
+    }
+
+    if(pincode.length !== 6 || isNaN(pincode)){
+        alert("Enter valid 6 digit pincode");
+        return;
+    }
+
+    const addressData = {
+        name:name,
+        mobile:mobile,
+        house:house,
+        city:city,
+        pincode:pincode
+    };
+
+    localStorage.setItem("ajjaramUserName", name);
+    localStorage.setItem(getAddressKey(), JSON.stringify(addressData));
+
+    document.getElementById("profileNameTop").innerText = name;
+    document.getElementById("profileName").innerText = name;
+
+    alert("Delivery address updated successfully");
+    document.getElementById("addressSettingsBox").classList.remove("active");
+}
+
+function logoutUser(){
+    localStorage.removeItem("ajjaramLoggedIn");
+    localStorage.removeItem("ajjaramUserMobile");
+    localStorage.removeItem("ajjaramLoginMobile");
+    localStorage.removeItem("ajjaramUserName");
+
+    alert("Logged out successfully");
+    window.location.href = "index.html";
+}
+
+if(profileCloseBtn){
+    profileCloseBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        closeProfileDrawer();
+    });
+}
+
+profileOverlay.addEventListener("click", closeProfileDrawer);
+
+updateLoginLogout();
+
+/* CART COUNT IN BOTTOM NAV */
+function updateCartCount(){
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = document.getElementById("cartCount");
+
+    if(!cartCount) return;
+
+    let totalQty = 0;
+
+    cart.forEach(item => {
+        totalQty += Number(item.qty) || 1;
+    });
+
+    cartCount.innerText = totalQty;
+
+    if(totalQty === 0){
+        cartCount.style.display = "none";
+    }else{
+        cartCount.style.display = "flex";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateCartCount);
+window.addEventListener("pageshow", updateCartCount);
+updateCartCount();
+
+</script>
+
+<script src="products-data.js"></script>
+<script src="common-search.js"></script>
+
+</div>
+</body>
+</html>

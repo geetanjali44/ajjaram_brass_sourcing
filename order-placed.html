@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Placed</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    background:#16a34a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    position:relative;
+    color:white;
+}
+
+/* STARS */
+.star{
+    position:absolute;
+    font-size:25px;
+    animation:starAnim 2.5s ease-in-out infinite;
+}
+
+.star:nth-child(1){ top:10%; left:18%; animation-delay:0s; }
+.star:nth-child(2){ top:18%; right:18%; animation-delay:.3s; }
+.star:nth-child(3){ top:40%; left:8%; animation-delay:.6s; }
+.star:nth-child(4){ top:42%; right:8%; animation-delay:.9s; }
+.star:nth-child(5){ bottom:22%; left:18%; animation-delay:1.2s; }
+.star:nth-child(6){ bottom:20%; right:18%; animation-delay:1.5s; }
+.star:nth-child(7){ top:8%; left:50%; animation-delay:1.8s; }
+.star:nth-child(8){ bottom:10%; left:48%; animation-delay:2.1s; }
+
+@keyframes starAnim{
+    0%,100%{
+        transform:scale(1) rotate(0deg);
+        opacity:.5;
+    }
+    50%{
+        transform:scale(1.5) rotate(20deg);
+        opacity:1;
+    }
+}
+
+/* MAIN CONTENT - NO BOX */
+.success-content{
+    text-align:center;
+    padding:20px;
+    z-index:5;
+}
+
+/* TICK CIRCLE ONLY */
+.tick-circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 28px;
+    animation:pulse 1.6s infinite;
+}
+
+.tick-circle i{
+    font-size:62px;
+    color:#16a34a;
+    animation:tickPop .7s ease;
+}
+
+@keyframes tickPop{
+    0%{
+        transform:scale(0) rotate(-35deg);
+        opacity:0;
+    }
+    70%{
+        transform:scale(1.25) rotate(8deg);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1) rotate(0deg);
+        opacity:1;
+    }
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 0 0 rgba(255,255,255,.35);
+    }
+    100%{
+        box-shadow:0 0 0 25px rgba(255,255,255,0);
+    }
+}
+
+h1{
+    font-size:32px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+p{
+    font-size:15px;
+    color:#eaffef;
+    margin-bottom:28px;
+}
+
+/* TRACK BUTTON */
+.track-btn{
+    border:none;
+    background:white;
+    color:#15803d;
+    padding:14px 38px;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.22);
+}
+
+.track-btn:active{
+    transform:scale(.96);
+}
+
+.home-link{
+    display:block;
+    margin-top:18px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:480px){
+    .tick-circle{
+        width:108px;
+        height:108px;
+    }
+
+    .tick-circle i{
+        font-size:55px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .star{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<span class="star">⭐</span>
+<span class="star">✨</span>
+<span class="star">⭐</span>
+<span class="star">✨</span>
+<span class="star">⭐</span>
+<span class="star">✨</span>
+<span class="star">⭐</span>
+<span class="star">✨</span>
+
+<div class="success-content">
+
+    <div class="tick-circle">
+        <i class="fa-solid fa-check"></i>
+    </div>
+
+    <h1>Order Placed!</h1>
+
+    <p>Your order has been placed successfully.</p>
+
+    <button class="track-btn" onclick="trackOrder()">Track Order</button>
+
+    <a href="home.html" class="home-link">Continue Shopping</a>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const orderId = params.get("orderId") || localStorage.getItem("lastOrderId") || "ABS123456";
+
+function trackOrder(){
+    window.location.href = "order-tracking.html?orderId=" + orderId;
+}
+</script>
+
+</body>
+</html>

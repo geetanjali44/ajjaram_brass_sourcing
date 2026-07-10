@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu System</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:emoji;
+}
+
+body{
+    min-height:100vh;
+    background:#f5deb3;
+}
+
+/* HEADER */
+header{
+    height:70px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:0 16px;
+    background:#fff7d8;
+    box-shadow:0 2px 10px rgba(0,0,0,0.12);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.menu-toggle{
+    font-size:28px;
+    cursor:pointer;
+    color:#4b2500;
+}
+
+header h3{
+    color:#4b2500;
+    font-size:20px;
+    font-weight:900;
+}
+
+/* MENU OVERLAY */
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.48);
+    display:none;
+    z-index:7000;
+}
+
+.menu-overlay.active{
+    display:block;
+}
+
+/* SIDE MENU */
+.side-menu{
+    position:fixed;
+    top:0;
+    left:0;
+    width:min(82vw, 310px);
+    height:100dvh;
+    background:#fff7d8;
+    z-index:7001;
+    padding:18px 14px;
+    box-shadow:4px 0 18px rgba(0,0,0,0.28);
+
+    transform:translateX(-105%);
+    transition:transform 0.35s ease;
+
+    border-top-right-radius:18px;
+    border-bottom-right-radius:18px;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+.side-menu.active{
+    transform:translateX(0);
+}
+
+/* MENU HEADER */
+.side-menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:14px;
+    border-bottom:1px solid rgba(139,94,60,0.25);
+    margin-bottom:14px;
+}
+
+.side-menu-header h3{
+    margin:0;
+    font-size:19px;
+    color:#4b2500;
+    font-weight:900;
+}
+
+/* CROSS MARK */
+.close-menu-btn{
+    border:none;
+    background:transparent;
+    color:#4b2500;
+    font-size:36px;
+    line-height:1;
+    cursor:pointer;
+    padding:0 4px;
+}
+
+/* LINKS */
+.side-menu a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#3b250e;
+    font-size:15px;
+    font-weight:700;
+    padding:14px 8px;
+    border-bottom:1px solid rgba(139,94,60,0.22);
+}
+
+.side-menu a i{
+    width:22px;
+    text-align:center;
+    color:#8b5e3c;
+    font-size:17px;
+}
+
+.side-menu a:hover{
+    background:rgba(139,94,60,0.12);
+    border-radius:10px;
+}
+
+/* MOBILE SAFE */
+@media(max-width:480px){
+    .side-menu{
+        width:84vw;
+        max-width:310px;
+        padding-left:calc(14px + env(safe-area-inset-left));
+        padding-bottom:calc(18px + env(safe-area-inset-bottom));
+    }
+
+    header h3{
+        font-size:17px;
+    }
+}
+
+@media(max-width:360px){
+    .side-menu{
+        width:90vw;
+    }
+
+    .side-menu a{
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <h3>AJJARAM BRASS</h3>
+</header>
+
+<!-- SIDE MENU OVERLAY -->
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+
+    <div class="side-menu-header">
+        <h3>Brass Collections</h3>
+        <button type="button" id="closeMenuBtn" class="close-menu-btn">×</button>
+    </div>
+
+    <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+
+    <a href="poojaitems.html">
+        <i class="fa-solid fa-om"></i>
+        Pooja Items
+    </a>
+
+    <a href="kitchen.html">
+        <i class="fa-solid fa-utensils"></i>
+        Kitchen Brass
+    </a>
+
+    <a href="wallhangings.html">
+        <i class="fa-solid fa-bell"></i>
+        Wall Hangings
+    </a>
+
+    <a href="homedecor.html">
+        <i class="fa-solid fa-couch"></i>
+        Home Decor
+    </a>
+
+    <a href="handicrafts.html">
+        <i class="fa-solid fa-gem"></i>
+        Handicrafts
+    </a>
+
+    <a href="idols.html">
+        <i class="fa-solid fa-hands-praying"></i>
+        Idols
+    </a>
+
+</div>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const sideMenu = document.getElementById("sideMenu");
+const menuOverlay = document.getElementById("menuOverlay");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+function openMenu(){
+    sideMenu.classList.add("active");
+    menuOverlay.classList.add("active");
+}
+
+function closeMenu(){
+    sideMenu.classList.remove("active");
+    menuOverlay.classList.remove("active");
+}
+
+menuToggle.addEventListener("click", openMenu);
+closeMenuBtn.addEventListener("click", closeMenu);
+menuOverlay.addEventListener("click", closeMenu);
+
+/* close menu after clicking any link */
+document.querySelectorAll(".side-menu a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+});
+</script>
+
+</body>
+</html>
